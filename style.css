@@ -130,3 +130,19 @@ body[data-theme="dark"] .form-group textarea::placeholder {
 
 .form-status.success { color: #4CAF50; }
 .form-status.error   { color: #e53935; }
+
+/* 댓글 섹션 */
+.disqus-section {
+    width: 100%;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    transition: background-color 0.3s;
+}
+
+body[data-theme="dark"] .disqus-section {
+    background-color: #16213e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
