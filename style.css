@@ -24,6 +24,60 @@ body[data-theme="dark"] {
     max-width: 480px;
 }
 
+/* 동물상 테스트 배너 */
+.animal-banner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 14px;
+    padding: 1.2rem 1.4rem;
+    text-decoration: none;
+    color: white;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+}
+
+.animal-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.55);
+}
+
+.animal-banner:active {
+    transform: scale(0.98);
+}
+
+.animal-banner-icons {
+    font-size: 1.8rem;
+    letter-spacing: 0.1rem;
+    flex-shrink: 0;
+}
+
+.animal-banner-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
+}
+
+.animal-banner-text strong {
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.animal-banner-text span {
+    font-size: 0.82rem;
+    opacity: 0.85;
+}
+
+.animal-banner-arrow {
+    font-size: 1.3rem;
+    opacity: 0.8;
+    flex-shrink: 0;
+}
+
 /* 제휴 문의 섹션 */
 .contact-section {
     width: 100%;
