@@ -30,6 +30,30 @@
             gap: 1.5rem;
         }
 
+        /* PC: card + info side-by-side */
+        @media (min-width: 960px) {
+            body { padding: 3rem 2rem 5rem; align-items: flex-start; }
+
+            .container { max-width: 980px; align-items: flex-start; }
+
+            .header { width: 100%; text-align: center; }
+
+            .page-body {
+                display: grid;
+                grid-template-columns: 460px 1fr;
+                gap: 2rem;
+                align-items: start;
+                width: 100%;
+            }
+
+            .card { width: 100%; }
+
+            .info-section {
+                margin: 0 !important;
+                align-self: start;
+            }
+        }
+
         .header { text-align: center; color: white; position: relative; width: 100%; }
         .header h1 { font-size: 2rem; font-weight: 800; text-shadow: 0 2px 8px rgba(0,0,0,0.2); }
         .header p  { margin-top: 0.4rem; font-size: 0.95rem; opacity: 0.85; }
@@ -234,6 +258,7 @@
         <button class="lang-toggle" onclick="Lang.toggle()">English</button>
     </div>
 
+    <div class="page-body">
     <div class="card">
 
         <!-- Start -->
@@ -286,9 +311,9 @@
         </div>
 
     </div>
-</div>
 
-<section class="info-section" id="info-section"></section>
+    <section class="info-section" id="info-section"></section>
+    </div><!-- /.page-body -->
 
 <footer class="site-footer">
     <p>© 2026 FunTools. All rights reserved.</p>

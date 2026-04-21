@@ -1,30 +1,108 @@
+/* === Reset & Base === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
     min-height: 100vh;
-    margin: 0;
-    padding: 2rem 1rem;
-    font-family: sans-serif;
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
     background-color: #e9e9e9;
     transition: background-color 0.3s;
-    box-sizing: border-box;
+    color: #333;
 }
 
-body[data-theme="dark"] {
-    background-color: #1a1a2e;
+body[data-theme="dark"] { background-color: #1a1a2e; color: #e0e0e0; }
+
+/* === Page outer: centering wrapper === */
+.page-outer {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem 4rem;
 }
 
+/* === Page wrapper: main content column === */
 .page-wrapper {
+    width: 100%;
+    max-width: 520px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 2.5rem;
-    width: 100%;
-    max-width: 480px;
+    gap: 2rem;
 }
 
-/* 동물상 테스트 배너 */
+/* Tablet */
+@media (min-width: 640px) {
+    .page-outer { padding: 2.5rem 1.5rem 4rem; }
+}
+
+/* Desktop */
+@media (min-width: 960px) {
+    .page-outer  { padding: 3rem 2rem 5rem; }
+    .page-wrapper { max-width: 1020px; }
+}
+
+/* === Site header === */
+.site-header {
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.site-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #333;
+    transition: color 0.3s;
+}
+
+body[data-theme="dark"] .site-title { color: #e0e0e0; }
+
+.site-desc {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 0.3rem;
+}
+
+body[data-theme="dark"] .site-desc { color: #aaa; }
+
+/* === Language toggle === */
+.lang-toggle {
+    display: inline-block;
+    margin-top: 0.6rem;
+    padding: 0.3rem 0.9rem;
+    border: 1.5px solid #bbb;
+    border-radius: 20px;
+    background: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #666;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.lang-toggle:hover { border-color: #667eea; color: #667eea; }
+body[data-theme="dark"] .lang-toggle { color: #bbb; border-color: #555; }
+body[data-theme="dark"] .lang-toggle:hover { border-color: #9a8fd8; color: #9a8fd8; }
+
+/* === Tools grid: 1-col mobile → 2-col desktop === */
+.tools-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+@media (min-width: 960px) {
+    .tools-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: start;
+    }
+}
+
+.tool-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+/* === Animal banner === */
 .animal-banner {
     width: 100%;
     display: flex;
@@ -37,7 +115,6 @@ body[data-theme="dark"] {
     color: white;
     box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
     transition: transform 0.15s, box-shadow 0.15s;
-    box-sizing: border-box;
 }
 
 .animal-banner:hover {
@@ -45,194 +122,22 @@ body[data-theme="dark"] {
     box-shadow: 0 8px 24px rgba(102, 126, 234, 0.55);
 }
 
-.animal-banner:active {
-    transform: scale(0.98);
-}
+.animal-banner:active { transform: scale(0.98); }
 
-.animal-banner-icons {
-    font-size: 1.8rem;
-    letter-spacing: 0.1rem;
-    flex-shrink: 0;
-}
+.animal-banner-icons { font-size: 1.8rem; letter-spacing: 0.1rem; flex-shrink: 0; }
 
-.animal-banner-text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    flex: 1;
-}
+.animal-banner-text { display: flex; flex-direction: column; gap: 0.2rem; flex: 1; }
+.animal-banner-text strong { font-size: 1.05rem; font-weight: 800; }
+.animal-banner-text span   { font-size: 0.82rem; opacity: 0.85; }
 
-.animal-banner-text strong {
-    font-size: 1.05rem;
-    font-weight: 800;
-}
+.animal-banner-arrow { font-size: 1.3rem; opacity: 0.8; flex-shrink: 0; }
 
-.animal-banner-text span {
-    font-size: 0.82rem;
-    opacity: 0.85;
-}
-
-.animal-banner-arrow {
-    font-size: 1.3rem;
-    opacity: 0.8;
-    flex-shrink: 0;
-}
-
-/* 제휴 문의 섹션 */
-.contact-section {
-    width: 100%;
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    padding: 2rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-body[data-theme="dark"] .contact-section {
-    background-color: #16213e;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-.contact-section h2 {
-    margin: 0 0 1.5rem;
-    font-size: 1.4rem;
-    color: #333;
-    transition: color 0.3s;
-}
-
-body[data-theme="dark"] .contact-section h2 {
-    color: #e0e0e0;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1.1rem;
-}
-
-.form-group label {
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-bottom: 0.4rem;
-    color: #555;
-    transition: color 0.3s;
-}
-
-body[data-theme="dark"] .form-group label {
-    color: #aaa;
-}
-
-.form-group input,
-.form-group textarea {
-    padding: 0.65rem 0.85rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-family: sans-serif;
-    background-color: #fff;
-    color: #333;
-    transition: border-color 0.2s, background-color 0.3s, color 0.3s;
-    outline: none;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: #4CAF50;
-}
-
-body[data-theme="dark"] .form-group input,
-body[data-theme="dark"] .form-group textarea {
-    background-color: #0f3460;
-    border-color: #2a4a7f;
-    color: #e0e0e0;
-}
-
-body[data-theme="dark"] .form-group input::placeholder,
-body[data-theme="dark"] .form-group textarea::placeholder {
-    color: #7a9cc0;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 0.85rem;
-    font-size: 1.05rem;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-    border-radius: 6px;
-    background-color: #4CAF50;
-    color: white;
-    transition: background-color 0.3s;
-}
-
-.submit-btn:hover:not(:disabled) {
-    background-color: #45a049;
-}
-
-.submit-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.form-status {
-    margin: 0.75rem 0 0;
-    font-size: 0.9rem;
-    text-align: center;
-    min-height: 1.2em;
-}
-
-.form-status.success { color: #4CAF50; }
-.form-status.error   { color: #e53935; }
-
-/* 언어 토글 버튼 */
-.lang-toggle {
-    padding: 0.3rem 0.85rem;
-    border: 1.5px solid #aaa;
-    border-radius: 20px;
-    background: none;
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
-    color: #666;
-    transition: border-color 0.2s, color 0.2s;
-    margin-top: 0.5rem;
-}
-.lang-toggle:hover { border-color: #667eea; color: #667eea; }
-body[data-theme="dark"] .lang-toggle { color: #bbb; border-color: #555; }
-body[data-theme="dark"] .lang-toggle:hover { border-color: #9a8fd8; color: #9a8fd8; }
-
-/* 사이트 헤더 */
-.site-header {
-    text-align: center;
-    padding: 0.5rem 0;
-}
-
-.site-title {
-    font-size: 1.8rem;
-    font-weight: 900;
-    color: #333;
-    transition: color 0.3s;
-}
-
-body[data-theme="dark"] .site-title { color: #e0e0e0; }
-
-.site-desc {
-    font-size: 0.88rem;
-    color: #888;
-    margin-top: 0.3rem;
-    transition: color 0.3s;
-}
-
-body[data-theme="dark"] .site-desc { color: #999; }
-
-/* 콘텐츠 설명 섹션 */
+/* === Content description sections === */
 .content-section {
     width: 100%;
     background-color: #f0f0f0;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 1.4rem 1.6rem;
-    box-sizing: border-box;
     transition: background-color 0.3s;
 }
 
@@ -257,12 +162,126 @@ body[data-theme="dark"] .section-title { color: #ddd; }
 
 body[data-theme="dark"] .section-text { color: #aaa; }
 
-/* 푸터 */
+/* === Contact section === */
+.contact-section {
+    width: 100%;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.07);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body[data-theme="dark"] .contact-section {
+    background-color: #16213e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* On desktop, center the contact form */
+@media (min-width: 960px) {
+    .contact-section {
+        max-width: 640px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+.contact-section h2 {
+    margin: 0 0 1.5rem;
+    font-size: 1.4rem;
+    color: #333;
+    transition: color 0.3s;
+}
+
+body[data-theme="dark"] .contact-section h2 { color: #e0e0e0; }
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.1rem;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+    color: #555;
+    transition: color 0.3s;
+}
+
+body[data-theme="dark"] .form-group label { color: #aaa; }
+
+.form-group input,
+.form-group textarea {
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.2s, background-color 0.3s, color 0.3s;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus { border-color: #667eea; }
+
+body[data-theme="dark"] .form-group input,
+body[data-theme="dark"] .form-group textarea {
+    background-color: #0f3460;
+    border-color: #2a4a7f;
+    color: #e0e0e0;
+}
+
+body[data-theme="dark"] .form-group input::placeholder,
+body[data-theme="dark"] .form-group textarea::placeholder { color: #7a9cc0; }
+
+.submit-btn {
+    width: 100%;
+    padding: 0.85rem;
+    font-size: 1.05rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover:not(:disabled) { background-color: #45a049; }
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.form-status {
+    margin: 0.75rem 0 0;
+    font-size: 0.9rem;
+    text-align: center;
+    min-height: 1.2em;
+}
+
+.form-status.success { color: #4CAF50; }
+.form-status.error   { color: #e53935; }
+
+/* === Disqus section === */
+.disqus-section {
+    width: 100%;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.07);
+    transition: background-color 0.3s;
+}
+
+body[data-theme="dark"] .disqus-section {
+    background-color: #16213e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* === Footer === */
 .site-footer {
     width: 100%;
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 1.5rem 1rem;
+    padding: 1.2rem 1rem 0.5rem;
     text-align: center;
     font-size: 0.82rem;
     color: #aaa;
@@ -279,19 +298,3 @@ body[data-theme="dark"] .section-text { color: #aaa; }
 .footer-nav a { color: #888; text-decoration: none; }
 .footer-nav a:hover { color: #555; text-decoration: underline; }
 .footer-nav span { color: #ccc; }
-
-/* 댓글 섹션 */
-.disqus-section {
-    width: 100%;
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    padding: 2rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    transition: background-color 0.3s;
-}
-
-body[data-theme="dark"] .disqus-section {
-    background-color: #16213e;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}

@@ -11,6 +11,7 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7044177607385540" crossorigin="anonymous"></script>
 </head>
 <body>
+<div class="page-outer">
     <div class="page-wrapper">
 
         <header class="site-header">
@@ -19,26 +20,30 @@
             <button class="lang-toggle" onclick="Lang.toggle()">English</button>
         </header>
 
-        <lotto-generator></lotto-generator>
-
-        <section class="content-section">
-            <h2 class="section-title" data-i18n="lotto-section-title">로또 번호 추첨기란?</h2>
-            <p class="section-text" data-i18n="lotto-section-text">로또 번호 추첨기는 1~45 사이의 숫자 중 6개를 무작위로 선택해주는 도구입니다. 매주 토요일 진행되는 대한민국 로또 6/45에 사용할 번호를 간편하게 생성할 수 있습니다. 버튼 한 번으로 완전 무작위 번호를 즉시 확인하세요.</p>
-        </section>
-
-        <a href="animal-test.html" class="animal-banner">
-            <div class="animal-banner-icons">🐶🐱🐢</div>
-            <div class="animal-banner-text">
-                <strong data-i18n="animal-banner-title">나는 어떤 동물상?</strong>
-                <span data-i18n="animal-banner-sub">AI가 당신의 동물상을 분석해드려요</span>
+        <!-- 2-column on desktop, 1-column on mobile -->
+        <div class="tools-grid">
+            <div class="tool-col">
+                <lotto-generator></lotto-generator>
+                <section class="content-section">
+                    <h2 class="section-title" data-i18n="lotto-section-title">로또 번호 추첨기란?</h2>
+                    <p class="section-text" data-i18n="lotto-section-text">로또 번호 추첨기는 1~45 사이의 숫자 중 6개를 무작위로 선택해주는 도구입니다. 매주 토요일 진행되는 대한민국 로또 6/45에 사용할 번호를 간편하게 생성할 수 있습니다. 버튼 한 번으로 완전 무작위 번호를 즉시 확인하세요.</p>
+                </section>
             </div>
-            <div class="animal-banner-arrow">→</div>
-        </a>
-
-        <section class="content-section">
-            <h2 class="section-title" data-i18n="animal-section-title">동물상 테스트란?</h2>
-            <p class="section-text" data-i18n="animal-section-text">동물상 테스트는 사진 한 장으로 내 얼굴이 어떤 동물을 닮았는지 AI가 분석해주는 재미있는 테스트입니다. 강아지상, 고양이상, 거북이상 중 어떤 동물의 특징을 가지고 있는지 확인해보세요. Google Teachable Machine 기술을 활용하여 브라우저에서 직접 이미지를 분석하며, 업로드한 사진은 외부 서버로 전송되지 않아 개인정보가 안전하게 보호됩니다.</p>
-        </section>
+            <div class="tool-col">
+                <a href="animal-test.html" class="animal-banner">
+                    <div class="animal-banner-icons">🐶🐱🐢</div>
+                    <div class="animal-banner-text">
+                        <strong data-i18n="animal-banner-title">나는 어떤 동물상?</strong>
+                        <span data-i18n="animal-banner-sub">AI가 당신의 동물상을 분석해드려요</span>
+                    </div>
+                    <div class="animal-banner-arrow">→</div>
+                </a>
+                <section class="content-section">
+                    <h2 class="section-title" data-i18n="animal-section-title">동물상 테스트란?</h2>
+                    <p class="section-text" data-i18n="animal-section-text">동물상 테스트는 사진 한 장으로 내 얼굴이 어떤 동물을 닮았는지 AI가 분석해주는 재미있는 테스트입니다. 강아지상, 고양이상, 거북이상 중 어떤 동물의 특징을 가지고 있는지 확인해보세요. Google Teachable Machine 기술을 활용하여 브라우저에서 직접 이미지를 분석하며, 업로드한 사진은 외부 서버로 전송되지 않아 개인정보가 안전하게 보호됩니다.</p>
+                </section>
+            </div>
+        </div>
 
         <section class="contact-section">
             <h2 data-i18n="contact-title">제휴 문의</h2>
@@ -63,114 +68,104 @@
                 <p class="form-status" id="form-status"></p>
             </form>
         </section>
+
+        <section class="disqus-section">
+            <div id="disqus_thread"></div>
+            <script>
+                (function() {
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://product-001.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </section>
+
+        <footer class="site-footer">
+            <p>© 2026 FunTools. All rights reserved.</p>
+            <nav class="footer-nav">
+                <a href="privacy.html" data-i18n="footer-privacy">개인정보처리방침</a>
+                <span>·</span>
+                <a href="animal-test.html" data-i18n="footer-animal">동물상 테스트</a>
+            </nav>
+        </footer>
+
     </div>
+</div>
 
-    <section class="disqus-section">
-        <div id="disqus_thread"></div>
-        <script>
-            (function() {
-                var d = document, s = d.createElement('script');
-                s.src = 'https://product-001.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </section>
+<script src="i18n.js"></script>
+<script src="main.js"></script>
+<script>
+    window.TRANSLATIONS = {
+        ko: {
+            'page-title': 'FunTools — 로또 번호 추첨기 & 동물상 테스트',
+            'site-desc': '누구나 즐길 수 있는 무료 온라인 도구 모음',
+            'lotto-section-title': '로또 번호 추첨기란?',
+            'lotto-section-text': '로또 번호 추첨기는 1~45 사이의 숫자 중 6개를 무작위로 선택해주는 도구입니다. 매주 토요일 진행되는 대한민국 로또 6/45에 사용할 번호를 간편하게 생성할 수 있습니다. 버튼 한 번으로 완전 무작위 번호를 즉시 확인하세요.',
+            'animal-banner-title': '나는 어떤 동물상?',
+            'animal-banner-sub': 'AI가 당신의 동물상을 분석해드려요',
+            'animal-section-title': '동물상 테스트란?',
+            'animal-section-text': '동물상 테스트는 사진 한 장으로 내 얼굴이 어떤 동물을 닮았는지 AI가 분석해주는 재미있는 테스트입니다. 강아지상, 고양이상, 거북이상 중 어떤 동물의 특징을 가지고 있는지 확인해보세요. Google Teachable Machine 기술을 활용하여 브라우저에서 직접 이미지를 분석하며, 업로드한 사진은 외부 서버로 전송되지 않아 개인정보가 안전하게 보호됩니다.',
+            'contact-title': '제휴 문의',
+            'label-name': '이름', 'label-email': '이메일', 'label-company': '회사명', 'label-message': '문의 내용',
+            'ph-name': '홍길동', 'ph-company': '(주)회사명', 'ph-message': '문의 내용을 입력해주세요.',
+            'submit-btn': '문의 보내기',
+            'footer-privacy': '개인정보처리방침', 'footer-animal': '동물상 테스트',
+            'form-success': '문의가 접수되었습니다. 감사합니다!',
+            'form-error': '전송에 실패했습니다. 다시 시도해주세요.',
+            'form-sending': '전송 중...',
+        },
+        en: {
+            'page-title': 'FunTools — Lotto Number Generator & Animal Face Test',
+            'site-desc': 'A free collection of fun online tools for everyone',
+            'lotto-section-title': 'What is the Lotto Number Generator?',
+            'lotto-section-text': 'The Lotto Number Generator randomly picks 6 numbers between 1 and 45 — perfect for the Korean Lotto 6/45 drawn every Saturday. Get a completely random set of lucky numbers with just one click.',
+            'animal-banner-title': 'Which Animal Do I Resemble?',
+            'animal-banner-sub': 'AI analyzes your animal face type from a photo',
+            'animal-section-title': 'What is the Animal Face Test?',
+            'animal-section-text': 'The Animal Face Test is a fun AI-powered test that analyzes which animal your face resembles — dog, cat, or turtle. Powered by Google Teachable Machine, all image analysis runs directly in your browser. Your photo is never sent to any external server.',
+            'contact-title': 'Partnership Inquiry',
+            'label-name': 'Name', 'label-email': 'Email', 'label-company': 'Company', 'label-message': 'Message',
+            'ph-name': 'John Doe', 'ph-company': 'Company Name', 'ph-message': 'Please enter your inquiry.',
+            'submit-btn': 'Send Inquiry',
+            'footer-privacy': 'Privacy Policy', 'footer-animal': 'Animal Face Test',
+            'form-success': 'Your inquiry has been received. Thank you!',
+            'form-error': 'Failed to send. Please try again.',
+            'form-sending': 'Sending...',
+        }
+    };
 
-    <footer class="site-footer">
-        <p>© 2026 FunTools. All rights reserved.</p>
-        <nav class="footer-nav">
-            <a href="privacy.html" data-i18n="footer-privacy">개인정보처리방침</a>
-            <span>·</span>
-            <a href="animal-test.html" data-i18n="footer-animal">동물상 테스트</a>
-        </nav>
-    </footer>
+    Lang.init();
 
-    <script src="i18n.js"></script>
-    <script src="main.js"></script>
-    <script>
-        window.TRANSLATIONS = {
-            ko: {
-                'page-title': 'FunTools — 로또 번호 추첨기 & 동물상 테스트',
-                'site-desc': '누구나 즐길 수 있는 무료 온라인 도구 모음',
-                'lotto-section-title': '로또 번호 추첨기란?',
-                'lotto-section-text': '로또 번호 추첨기는 1~45 사이의 숫자 중 6개를 무작위로 선택해주는 도구입니다. 매주 토요일 진행되는 대한민국 로또 6/45에 사용할 번호를 간편하게 생성할 수 있습니다. 버튼 한 번으로 완전 무작위 번호를 즉시 확인하세요.',
-                'animal-banner-title': '나는 어떤 동물상?',
-                'animal-banner-sub': 'AI가 당신의 동물상을 분석해드려요',
-                'animal-section-title': '동물상 테스트란?',
-                'animal-section-text': '동물상 테스트는 사진 한 장으로 내 얼굴이 어떤 동물을 닮았는지 AI가 분석해주는 재미있는 테스트입니다. 강아지상, 고양이상, 거북이상 중 어떤 동물의 특징을 가지고 있는지 확인해보세요. Google Teachable Machine 기술을 활용하여 브라우저에서 직접 이미지를 분석하며, 업로드한 사진은 외부 서버로 전송되지 않아 개인정보가 안전하게 보호됩니다.',
-                'contact-title': '제휴 문의',
-                'label-name': '이름',
-                'label-email': '이메일',
-                'label-company': '회사명',
-                'label-message': '문의 내용',
-                'ph-name': '홍길동',
-                'ph-company': '(주)회사명',
-                'ph-message': '문의 내용을 입력해주세요.',
-                'submit-btn': '문의 보내기',
-                'footer-privacy': '개인정보처리방침',
-                'footer-animal': '동물상 테스트',
-                'form-success': '문의가 접수되었습니다. 감사합니다!',
-                'form-error': '전송에 실패했습니다. 다시 시도해주세요.',
-                'form-sending': '전송 중...',
-            },
-            en: {
-                'page-title': 'FunTools — Lotto Number Generator & Animal Face Test',
-                'site-desc': 'A free collection of fun online tools for everyone',
-                'lotto-section-title': 'What is the Lotto Number Generator?',
-                'lotto-section-text': 'The Lotto Number Generator randomly picks 6 numbers between 1 and 45 — perfect for the Korean Lotto 6/45 drawn every Saturday. Get a completely random set of lucky numbers with just one click.',
-                'animal-banner-title': 'Which Animal Do I Resemble?',
-                'animal-banner-sub': 'AI analyzes your animal face type from a photo',
-                'animal-section-title': 'What is the Animal Face Test?',
-                'animal-section-text': 'The Animal Face Test is a fun AI-powered test that analyzes which animal your face resembles — dog, cat, or turtle. Powered by Google Teachable Machine, all image analysis runs directly in your browser. Your photo is never sent to any external server.',
-                'contact-title': 'Partnership Inquiry',
-                'label-name': 'Name',
-                'label-email': 'Email',
-                'label-company': 'Company',
-                'label-message': 'Message',
-                'ph-name': 'John Doe',
-                'ph-company': 'Company Name',
-                'ph-message': 'Please enter your inquiry.',
-                'submit-btn': 'Send Inquiry',
-                'footer-privacy': 'Privacy Policy',
-                'footer-animal': 'Animal Face Test',
-                'form-success': 'Your inquiry has been received. Thank you!',
-                'form-error': 'Failed to send. Please try again.',
-                'form-sending': 'Sending...',
-            }
-        };
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('form-status');
 
-        Lang.init();
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('.submit-btn');
+        const t = window.TRANSLATIONS[Lang.get()];
+        btn.disabled = true;
+        btn.textContent = t['form-sending'];
 
-        const form = document.getElementById('contact-form');
-        const status = document.getElementById('form-status');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = form.querySelector('.submit-btn');
-            const t = window.TRANSLATIONS[Lang.get()];
-            btn.disabled = true;
-            btn.textContent = t['form-sending'];
-
-            const res = await fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: { 'Accept': 'application/json' }
-            });
-
-            if (res.ok) {
-                status.textContent = t['form-success'];
-                status.className = 'form-status success';
-                form.reset();
-            } else {
-                status.textContent = t['form-error'];
-                status.className = 'form-status error';
-            }
-
-            btn.disabled = false;
-            btn.textContent = t['submit-btn'];
+        const res = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
         });
-    </script>
+
+        if (res.ok) {
+            status.textContent = t['form-success'];
+            status.className = 'form-status success';
+            form.reset();
+        } else {
+            status.textContent = t['form-error'];
+            status.className = 'form-status error';
+        }
+
+        btn.disabled = false;
+        btn.textContent = t['submit-btn'];
+    });
+</script>
 </body>
 </html>
