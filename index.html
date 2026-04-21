@@ -15,50 +15,51 @@
 
         <header class="site-header">
             <h1 class="site-title">🎯 FunTools</h1>
-            <p class="site-desc">누구나 즐길 수 있는 무료 온라인 도구 모음</p>
+            <p class="site-desc" data-i18n="site-desc">누구나 즐길 수 있는 무료 온라인 도구 모음</p>
+            <button class="lang-toggle" onclick="Lang.toggle()">English</button>
         </header>
 
         <lotto-generator></lotto-generator>
 
         <section class="content-section">
-            <h2 class="section-title">로또 번호 추첨기란?</h2>
-            <p class="section-text">로또 번호 추첨기는 1~45 사이의 숫자 중 6개를 무작위로 선택해주는 도구입니다. 매주 토요일 진행되는 대한민국 로또 6/45에 사용할 번호를 간편하게 생성할 수 있습니다. 버튼 한 번으로 완전 무작위 번호를 즉시 확인하세요.</p>
+            <h2 class="section-title" data-i18n="lotto-section-title">로또 번호 추첨기란?</h2>
+            <p class="section-text" data-i18n="lotto-section-text">로또 번호 추첨기는 1~45 사이의 숫자 중 6개를 무작위로 선택해주는 도구입니다. 매주 토요일 진행되는 대한민국 로또 6/45에 사용할 번호를 간편하게 생성할 수 있습니다. 버튼 한 번으로 완전 무작위 번호를 즉시 확인하세요.</p>
         </section>
 
         <a href="animal-test.html" class="animal-banner">
             <div class="animal-banner-icons">🐶🐱🐢</div>
             <div class="animal-banner-text">
-                <strong>나는 어떤 동물상?</strong>
-                <span>AI가 당신의 동물상을 분석해드려요</span>
+                <strong data-i18n="animal-banner-title">나는 어떤 동물상?</strong>
+                <span data-i18n="animal-banner-sub">AI가 당신의 동물상을 분석해드려요</span>
             </div>
             <div class="animal-banner-arrow">→</div>
         </a>
 
         <section class="content-section">
-            <h2 class="section-title">동물상 테스트란?</h2>
-            <p class="section-text">동물상 테스트는 사진 한 장으로 내 얼굴이 어떤 동물을 닮았는지 AI가 분석해주는 재미있는 테스트입니다. 강아지상, 고양이상, 거북이상 중 어떤 동물의 특징을 가지고 있는지 확인해보세요. Google Teachable Machine 기술을 활용하여 브라우저에서 직접 이미지를 분석하며, 업로드한 사진은 외부 서버로 전송되지 않아 개인정보가 안전하게 보호됩니다.</p>
+            <h2 class="section-title" data-i18n="animal-section-title">동물상 테스트란?</h2>
+            <p class="section-text" data-i18n="animal-section-text">동물상 테스트는 사진 한 장으로 내 얼굴이 어떤 동물을 닮았는지 AI가 분석해주는 재미있는 테스트입니다. 강아지상, 고양이상, 거북이상 중 어떤 동물의 특징을 가지고 있는지 확인해보세요. Google Teachable Machine 기술을 활용하여 브라우저에서 직접 이미지를 분석하며, 업로드한 사진은 외부 서버로 전송되지 않아 개인정보가 안전하게 보호됩니다.</p>
         </section>
 
         <section class="contact-section">
-            <h2>제휴 문의</h2>
+            <h2 data-i18n="contact-title">제휴 문의</h2>
             <form id="contact-form" action="https://formspree.io/f/mvzdazzj" method="POST">
                 <div class="form-group">
-                    <label for="name">이름</label>
-                    <input type="text" id="name" name="name" placeholder="홍길동" required>
+                    <label for="name" data-i18n="label-name">이름</label>
+                    <input type="text" id="name" name="name" data-i18n-placeholder="ph-name" placeholder="홍길동" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">이메일</label>
+                    <label for="email" data-i18n="label-email">이메일</label>
                     <input type="email" id="email" name="email" placeholder="example@email.com" required>
                 </div>
                 <div class="form-group">
-                    <label for="company">회사명</label>
-                    <input type="text" id="company" name="company" placeholder="(주)회사명">
+                    <label for="company" data-i18n="label-company">회사명</label>
+                    <input type="text" id="company" name="company" data-i18n-placeholder="ph-company" placeholder="(주)회사명">
                 </div>
                 <div class="form-group">
-                    <label for="message">문의 내용</label>
-                    <textarea id="message" name="message" rows="5" placeholder="문의 내용을 입력해주세요." required></textarea>
+                    <label for="message" data-i18n="label-message">문의 내용</label>
+                    <textarea id="message" name="message" rows="5" data-i18n-placeholder="ph-message" placeholder="문의 내용을 입력해주세요." required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">문의 보내기</button>
+                <button type="submit" class="submit-btn" data-i18n="submit-btn">문의 보내기</button>
                 <p class="form-status" id="form-status"></p>
             </form>
         </section>
@@ -80,22 +81,77 @@
     <footer class="site-footer">
         <p>© 2026 FunTools. All rights reserved.</p>
         <nav class="footer-nav">
-            <a href="privacy.html">개인정보처리방침</a>
+            <a href="privacy.html" data-i18n="footer-privacy">개인정보처리방침</a>
             <span>·</span>
-            <a href="animal-test.html">동물상 테스트</a>
+            <a href="animal-test.html" data-i18n="footer-animal">동물상 테스트</a>
         </nav>
     </footer>
 
+    <script src="i18n.js"></script>
     <script src="main.js"></script>
     <script>
+        window.TRANSLATIONS = {
+            ko: {
+                'page-title': 'FunTools — 로또 번호 추첨기 & 동물상 테스트',
+                'site-desc': '누구나 즐길 수 있는 무료 온라인 도구 모음',
+                'lotto-section-title': '로또 번호 추첨기란?',
+                'lotto-section-text': '로또 번호 추첨기는 1~45 사이의 숫자 중 6개를 무작위로 선택해주는 도구입니다. 매주 토요일 진행되는 대한민국 로또 6/45에 사용할 번호를 간편하게 생성할 수 있습니다. 버튼 한 번으로 완전 무작위 번호를 즉시 확인하세요.',
+                'animal-banner-title': '나는 어떤 동물상?',
+                'animal-banner-sub': 'AI가 당신의 동물상을 분석해드려요',
+                'animal-section-title': '동물상 테스트란?',
+                'animal-section-text': '동물상 테스트는 사진 한 장으로 내 얼굴이 어떤 동물을 닮았는지 AI가 분석해주는 재미있는 테스트입니다. 강아지상, 고양이상, 거북이상 중 어떤 동물의 특징을 가지고 있는지 확인해보세요. Google Teachable Machine 기술을 활용하여 브라우저에서 직접 이미지를 분석하며, 업로드한 사진은 외부 서버로 전송되지 않아 개인정보가 안전하게 보호됩니다.',
+                'contact-title': '제휴 문의',
+                'label-name': '이름',
+                'label-email': '이메일',
+                'label-company': '회사명',
+                'label-message': '문의 내용',
+                'ph-name': '홍길동',
+                'ph-company': '(주)회사명',
+                'ph-message': '문의 내용을 입력해주세요.',
+                'submit-btn': '문의 보내기',
+                'footer-privacy': '개인정보처리방침',
+                'footer-animal': '동물상 테스트',
+                'form-success': '문의가 접수되었습니다. 감사합니다!',
+                'form-error': '전송에 실패했습니다. 다시 시도해주세요.',
+                'form-sending': '전송 중...',
+            },
+            en: {
+                'page-title': 'FunTools — Lotto Number Generator & Animal Face Test',
+                'site-desc': 'A free collection of fun online tools for everyone',
+                'lotto-section-title': 'What is the Lotto Number Generator?',
+                'lotto-section-text': 'The Lotto Number Generator randomly picks 6 numbers between 1 and 45 — perfect for the Korean Lotto 6/45 drawn every Saturday. Get a completely random set of lucky numbers with just one click.',
+                'animal-banner-title': 'Which Animal Do I Resemble?',
+                'animal-banner-sub': 'AI analyzes your animal face type from a photo',
+                'animal-section-title': 'What is the Animal Face Test?',
+                'animal-section-text': 'The Animal Face Test is a fun AI-powered test that analyzes which animal your face resembles — dog, cat, or turtle. Powered by Google Teachable Machine, all image analysis runs directly in your browser. Your photo is never sent to any external server.',
+                'contact-title': 'Partnership Inquiry',
+                'label-name': 'Name',
+                'label-email': 'Email',
+                'label-company': 'Company',
+                'label-message': 'Message',
+                'ph-name': 'John Doe',
+                'ph-company': 'Company Name',
+                'ph-message': 'Please enter your inquiry.',
+                'submit-btn': 'Send Inquiry',
+                'footer-privacy': 'Privacy Policy',
+                'footer-animal': 'Animal Face Test',
+                'form-success': 'Your inquiry has been received. Thank you!',
+                'form-error': 'Failed to send. Please try again.',
+                'form-sending': 'Sending...',
+            }
+        };
+
+        Lang.init();
+
         const form = document.getElementById('contact-form');
         const status = document.getElementById('form-status');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = form.querySelector('.submit-btn');
+            const t = window.TRANSLATIONS[Lang.get()];
             btn.disabled = true;
-            btn.textContent = '전송 중...';
+            btn.textContent = t['form-sending'];
 
             const res = await fetch(form.action, {
                 method: 'POST',
@@ -104,16 +160,16 @@
             });
 
             if (res.ok) {
-                status.textContent = '문의가 접수되었습니다. 감사합니다!';
+                status.textContent = t['form-success'];
                 status.className = 'form-status success';
                 form.reset();
             } else {
-                status.textContent = '전송에 실패했습니다. 다시 시도해주세요.';
+                status.textContent = t['form-error'];
                 status.className = 'form-status error';
             }
 
             btn.disabled = false;
-            btn.textContent = '문의 보내기';
+            btn.textContent = t['submit-btn'];
         });
     </script>
 </body>

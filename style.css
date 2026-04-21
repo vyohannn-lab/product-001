@@ -185,6 +185,23 @@ body[data-theme="dark"] .form-group textarea::placeholder {
 .form-status.success { color: #4CAF50; }
 .form-status.error   { color: #e53935; }
 
+/* 언어 토글 버튼 */
+.lang-toggle {
+    padding: 0.3rem 0.85rem;
+    border: 1.5px solid #aaa;
+    border-radius: 20px;
+    background: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #666;
+    transition: border-color 0.2s, color 0.2s;
+    margin-top: 0.5rem;
+}
+.lang-toggle:hover { border-color: #667eea; color: #667eea; }
+body[data-theme="dark"] .lang-toggle { color: #bbb; border-color: #555; }
+body[data-theme="dark"] .lang-toggle:hover { border-color: #9a8fd8; color: #9a8fd8; }
+
 /* 사이트 헤더 */
 .site-header {
     text-align: center;

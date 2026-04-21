@@ -30,9 +30,24 @@
             gap: 1.5rem;
         }
 
-        .header { text-align: center; color: white; }
+        .header { text-align: center; color: white; position: relative; width: 100%; }
         .header h1 { font-size: 2rem; font-weight: 800; text-shadow: 0 2px 8px rgba(0,0,0,0.2); }
         .header p  { margin-top: 0.4rem; font-size: 0.95rem; opacity: 0.85; }
+
+        .lang-toggle {
+            position: absolute;
+            top: 0; right: 0;
+            padding: 0.3rem 0.8rem;
+            border: 1.5px solid rgba(255,255,255,0.6);
+            border-radius: 20px;
+            background: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: rgba(255,255,255,0.85);
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+        }
+        .lang-toggle:hover { background: rgba(255,255,255,0.15); color: white; border-color: white; }
 
         .card {
             background: white;
@@ -45,7 +60,6 @@
         .screen { display: none; flex-direction: column; align-items: center; gap: 1.3rem; }
         .screen.active { display: flex; }
 
-        /* ── Start screen ── */
         .animal-icons { font-size: 3.5rem; letter-spacing: 0.4rem; }
 
         .desc-text {
@@ -55,7 +69,6 @@
             line-height: 1.7;
         }
 
-        /* Drop zone */
         .drop-zone {
             width: 100%;
             border: 2.5px dashed #c5b8f5;
@@ -80,14 +93,11 @@
         .drop-zone-sub   { font-size: 0.82rem; color: #999; }
 
         #file-input { display: none; }
-
         .error-text { color: #e53935; font-size: 0.88rem; text-align: center; min-height: 1em; }
 
-        /* ── Preview screen ── */
         .preview-wrap {
             position: relative;
-            width: 260px;
-            height: 260px;
+            width: 260px; height: 260px;
             border-radius: 50%;
             overflow: hidden;
             border: 4px solid #667eea;
@@ -96,14 +106,8 @@
             flex-shrink: 0;
         }
 
-        #preview-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        #preview-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* ── Loading screen ── */
         .loading-wrap {
             display: flex;
             flex-direction: column;
@@ -123,7 +127,6 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         .loading-text { color: #888; font-size: 0.9rem; }
 
-        /* ── Result screen ── */
         .result-emoji  { font-size: 5.5rem; line-height: 1; }
         .result-title  { font-size: 1.9rem; font-weight: 800; color: #222; }
         .result-pct    { font-size: 1rem; font-weight: 600; color: #667eea; }
@@ -140,9 +143,8 @@
         }
 
         .scores { width: 100%; display: flex; flex-direction: column; gap: 0.65rem; }
-
         .score-row { display: flex; align-items: center; gap: 0.7rem; }
-        .score-label { width: 68px; font-size: 0.84rem; color: #555; font-weight: 600; }
+        .score-label { width: 80px; font-size: 0.84rem; color: #555; font-weight: 600; }
         .score-bar-bg { flex: 1; height: 12px; background: #eee; border-radius: 6px; overflow: hidden; }
         .score-bar-fill {
             height: 100%;
@@ -152,7 +154,6 @@
         }
         .score-pct { width: 40px; font-size: 0.82rem; color: #999; text-align: right; }
 
-        /* ── Buttons ── */
         .btn {
             width: 100%;
             padding: 0.9rem;
@@ -228,8 +229,9 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>나는 어떤 동물상? 🐾</h1>
-        <p>사진 한 장으로 AI가 당신의 동물상을 분석해드려요</p>
+        <h1 data-i18n="page-h1">나는 어떤 동물상? 🐾</h1>
+        <p data-i18n="page-sub">사진 한 장으로 AI가 당신의 동물상을 분석해드려요</p>
+        <button class="lang-toggle" onclick="Lang.toggle()">English</button>
     </div>
 
     <div class="card">
@@ -237,7 +239,7 @@
         <!-- Start -->
         <div class="screen active" id="screen-start">
             <div class="animal-icons">🐶🐱🐢</div>
-            <p class="desc-text">
+            <p class="desc-text" data-i18n="desc-text" data-i18n-html>
                 사진을 올리면 AI가<br>
                 <strong>강아지상 · 고양이상 · 거북이상</strong> 중<br>
                 어떤 동물을 닮았는지 알려드릴게요!
@@ -249,28 +251,27 @@
                  ondragleave="onDragLeave(event)"
                  ondrop="onDrop(event)">
                 <div class="drop-zone-icon">🖼️</div>
-                <div class="drop-zone-title">사진을 클릭하거나 끌어다 놓으세요</div>
-                <div class="drop-zone-sub">JPG · PNG · WEBP 등 이미지 파일</div>
+                <div class="drop-zone-title" data-i18n="drop-title">사진을 클릭하거나 끌어다 놓으세요</div>
+                <div class="drop-zone-sub"   data-i18n="drop-sub">JPG · PNG · WEBP 등 이미지 파일</div>
             </div>
             <input type="file" id="file-input" accept="image/*" onchange="handleFile(event)">
-
             <p class="error-text" id="start-error"></p>
         </div>
 
         <!-- Preview -->
         <div class="screen" id="screen-preview">
             <div class="preview-wrap">
-                <img id="preview-img" alt="선택한 사진">
+                <img id="preview-img" alt="preview">
             </div>
-            <button class="btn btn-primary" onclick="analyze()">✨ 분석하기</button>
-            <button class="btn btn-secondary" onclick="resetToStart()">← 다른 사진 선택</button>
+            <button class="btn btn-primary" data-i18n="btn-analyze" onclick="analyze()">✨ 분석하기</button>
+            <button class="btn btn-secondary" data-i18n="btn-back" onclick="resetToStart()">← 다른 사진 선택</button>
         </div>
 
         <!-- Loading -->
         <div class="screen" id="screen-loading">
             <div class="loading-wrap">
                 <div class="spinner"></div>
-                <p class="loading-text" id="loading-msg">AI 모델을 불러오는 중...</p>
+                <p class="loading-text" id="loading-msg" data-i18n="loading-model">AI 모델을 불러오는 중...</p>
             </div>
         </div>
 
@@ -281,35 +282,136 @@
             <div class="result-pct"    id="result-pct"></div>
             <div class="result-desc"   id="result-desc"></div>
             <div class="scores"        id="score-bars"></div>
-            <button class="btn btn-primary" onclick="resetToStart()">🔄 다시 테스트하기</button>
+            <button class="btn btn-primary" data-i18n="btn-retake" onclick="resetToStart()">🔄 다시 테스트하기</button>
         </div>
 
     </div>
 </div>
 
+<section class="info-section" id="info-section"></section>
+
+<footer class="site-footer">
+    <p>© 2026 FunTools. All rights reserved.</p>
+    <nav class="footer-nav">
+        <a href="index.html" data-i18n="footer-home">← 메인으로</a>
+        <span>·</span>
+        <a href="privacy.html" data-i18n="footer-privacy">개인정보처리방침</a>
+    </nav>
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script src="i18n.js"></script>
 <script>
 const MODEL_URL = "https://teachablemachine.withgoogle.com/models/B8cBJyLMv/";
 
 const ANIMALS = {
-    "강아지": { emoji: "🐶", label: "강아지상", color: "#f4a261",
-        desc: "충성스럽고 따뜻한 눈빛을 가진 당신! 친근하고 사교적인 매력으로 주변에서 사랑받는 타입이에요. 한 번 마음을 주면 끝까지 함께하는 의리파랍니다. 🐾" },
-    "고양이": { emoji: "🐱", label: "고양이상", color: "#7b9cda",
-        desc: "신비롭고 도도한 눈빛을 가진 당신! 독립적이고 세련된 매력으로 상대방을 설레게 하는 타입이에요. 차가워 보여도 속은 따뜻한 츤데레 스타일! ✨" },
-    "거북이": { emoji: "🐢", label: "거북이상", color: "#52b788",
-        desc: "묵직하고 신뢰감 넘치는 당신! 느긋해 보여도 중요한 순간에 누구보다 강한 의지를 발휘하는 타입이에요. 오래 사귈수록 그 매력이 빛나는 대기만성형! 🍀" }
+    "강아지": {
+        emoji: "🐶", color: "#f4a261",
+        ko: { label: "강아지상", name: "🐶 강아지", desc: "충성스럽고 따뜻한 눈빛을 가진 당신! 친근하고 사교적인 매력으로 주변에서 사랑받는 타입이에요. 한 번 마음을 주면 끝까지 함께하는 의리파랍니다. 🐾" },
+        en: { label: "Dog Type",  name: "🐶 Dog",    desc: "Loyal and warm-eyed! You radiate a friendly, sociable charm that makes everyone around you feel at ease. Once you're in, you're all in — the ultimate ride-or-die friend. 🐾" }
+    },
+    "고양이": {
+        emoji: "🐱", color: "#7b9cda",
+        ko: { label: "고양이상", name: "🐱 고양이", desc: "신비롭고 도도한 눈빛을 가진 당신! 독립적이고 세련된 매력으로 상대방을 설레게 하는 타입이에요. 차가워 보여도 속은 따뜻한 츤데레 스타일! ✨" },
+        en: { label: "Cat Type",  name: "🐱 Cat",    desc: "Mysterious and refined! Your independent, cool-headed charm keeps people intrigued. You may seem aloof at first, but those who get close discover a genuinely warm heart. ✨" }
+    },
+    "거북이": {
+        emoji: "🐢", color: "#52b788",
+        ko: { label: "거북이상", name: "🐢 거북이", desc: "묵직하고 신뢰감 넘치는 당신! 느긋해 보여도 중요한 순간에 누구보다 강한 의지를 발휘하는 타입이에요. 오래 사귈수록 그 매력이 빛나는 대기만성형! 🍀" },
+        en: { label: "Turtle Type", name: "🐢 Turtle", desc: "Steady and deeply trustworthy! You may seem laid-back, but when it counts you show incredible determination. A slow-burn charmer — the more people know you, the more they adore you. 🍀" }
+    }
 };
+
+const INFO = {
+    ko: `
+        <h2>동물상 테스트란?</h2>
+        <p>동물상 테스트는 AI(인공지능) 이미지 분류 기술을 활용해 내 얼굴이 어떤 동물을 닮았는지 분석해주는 재미있는 테스트입니다. Google Teachable Machine으로 학습된 모델이 브라우저에서 직접 이미지를 분석하며, 업로드한 사진은 외부 서버로 전송되지 않아 개인정보가 안전하게 보호됩니다.</p>
+        <h2>어떤 동물상이 있나요?</h2>
+        <ul>
+            <li><strong>🐶 강아지상</strong> — 친근하고 따뜻한 눈빛, 사교적이고 의리 있는 매력</li>
+            <li><strong>🐱 고양이상</strong> — 신비롭고 도도한 눈빛, 독립적이고 세련된 매력</li>
+            <li><strong>🐢 거북이상</strong> — 묵직하고 신뢰감 있는 눈빛, 대기만성형 매력</li>
+        </ul>
+        <h2>이용 방법</h2>
+        <ol>
+            <li>얼굴이 잘 보이는 사진을 준비하세요.</li>
+            <li>사진 업로드 영역을 클릭하거나 이미지를 끌어다 놓으세요.</li>
+            <li>'분석하기' 버튼을 누르면 AI가 즉시 결과를 알려드립니다.</li>
+        </ol>`,
+    en: `
+        <h2>What is the Animal Face Test?</h2>
+        <p>The Animal Face Test uses AI image classification to analyze which animal your face resembles. Powered by a Google Teachable Machine model, all processing happens directly in your browser — your photo is never sent to any external server, keeping your privacy fully protected.</p>
+        <h2>Which animal types are there?</h2>
+        <ul>
+            <li><strong>🐶 Dog Type</strong> — Warm, friendly eyes; sociable and loyal charm</li>
+            <li><strong>🐱 Cat Type</strong> — Mysterious, refined eyes; independent and elegant charm</li>
+            <li><strong>🐢 Turtle Type</strong> — Steady, trustworthy eyes; slow-burn, timeless charm</li>
+        </ul>
+        <h2>How to use</h2>
+        <ol>
+            <li>Prepare a clear photo where your face is visible.</li>
+            <li>Click the upload area or drag and drop your image.</li>
+            <li>Press "Analyze" and get your result instantly!</li>
+        </ol>`
+};
+
+window.TRANSLATIONS = {
+    ko: {
+        'page-title': 'AI 동물상 테스트 — 나는 강아지상? 고양이상? 거북이상? | FunTools',
+        'page-h1': '나는 어떤 동물상? 🐾',
+        'page-sub': '사진 한 장으로 AI가 당신의 동물상을 분석해드려요',
+        'desc-text': '사진을 올리면 AI가<br><strong>강아지상 · 고양이상 · 거북이상</strong> 중<br>어떤 동물을 닮았는지 알려드릴게요!',
+        'drop-title': '사진을 클릭하거나 끌어다 놓으세요',
+        'drop-sub': 'JPG · PNG · WEBP 등 이미지 파일',
+        'btn-analyze': '✨ 분석하기',
+        'btn-back': '← 다른 사진 선택',
+        'btn-retake': '🔄 다시 테스트하기',
+        'loading-model': 'AI 모델을 불러오는 중...',
+        'loading-analyze': '분석 중...',
+        'error-analyze': '분석 중 오류가 발생했습니다. 다시 시도해주세요.',
+        'result-pct': (pct) => `유사도 ${pct}%`,
+        'footer-home': '← 메인으로',
+        'footer-privacy': '개인정보처리방침',
+    },
+    en: {
+        'page-title': 'AI Animal Face Test — Dog, Cat, or Turtle? | FunTools',
+        'page-h1': 'Which Animal Do I Resemble? 🐾',
+        'page-sub': 'Upload a photo and AI will analyze your animal face type',
+        'desc-text': 'Upload a photo and AI will tell you whether you\'re a<br><strong>Dog Type · Cat Type · Turtle Type</strong>!',
+        'drop-title': 'Click or drag & drop a photo here',
+        'drop-sub': 'JPG · PNG · WEBP and other image files',
+        'btn-analyze': '✨ Analyze',
+        'btn-back': '← Choose Another Photo',
+        'btn-retake': '🔄 Test Again',
+        'loading-model': 'Loading AI model...',
+        'loading-analyze': 'Analyzing...',
+        'error-analyze': 'An error occurred. Please try again.',
+        'result-pct': (pct) => `${pct}% match`,
+        'footer-home': '← Back to Home',
+        'footer-privacy': 'Privacy Policy',
+    }
+};
+
+document.addEventListener('langchange', (e) => {
+    document.getElementById('info-section').innerHTML = INFO[e.detail.lang];
+});
+
+Lang.init();
 
 let model = null;
 let pendingImageSrc = null;
+
+function t(key, ...args) {
+    const val = window.TRANSLATIONS[Lang.get()][key];
+    return typeof val === 'function' ? val(...args) : val;
+}
 
 function showScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
 }
 
-/* ── Drag & Drop ── */
 function onDragOver(e) {
     e.preventDefault();
     document.getElementById('drop-zone').classList.add('dragover');
@@ -324,7 +426,6 @@ function onDrop(e) {
     if (file && file.type.startsWith('image/')) loadPreview(file);
 }
 
-/* ── File input ── */
 function handleFile(e) {
     const file = e.target.files[0];
     if (file) loadPreview(file);
@@ -342,17 +443,16 @@ function loadPreview(file) {
     reader.readAsDataURL(file);
 }
 
-/* ── Analyze ── */
 async function analyze() {
     if (!pendingImageSrc) return;
     showScreen('screen-loading');
-    document.getElementById('loading-msg').textContent = 'AI 모델을 불러오는 중...';
+    document.getElementById('loading-msg').textContent = t('loading-model');
 
     try {
         if (!model) {
             model = await tmImage.load(MODEL_URL + "model.json", MODEL_URL + "metadata.json");
         }
-        document.getElementById('loading-msg').textContent = '분석 중...';
+        document.getElementById('loading-msg').textContent = t('loading-analyze');
 
         const canvas = document.createElement('canvas');
         canvas.width = 224; canvas.height = 224;
@@ -370,19 +470,20 @@ async function analyze() {
     } catch (err) {
         model = null;
         showScreen('screen-start');
-        document.getElementById('start-error').textContent = '분석 중 오류가 발생했습니다. 다시 시도해주세요.';
+        document.getElementById('start-error').textContent = t('error-analyze');
     }
 }
 
-/* ── Show result ── */
 function showResult(preds) {
+    const lang = Lang.get();
     const top = preds.reduce((a, b) => a.probability > b.probability ? a : b);
-    const a = ANIMALS[top.className] || { emoji: '🐾', label: top.className, color: '#667eea', desc: '' };
+    const a = ANIMALS[top.className];
+    const data = a ? a[lang] : { label: top.className, name: top.className, desc: '' };
 
-    document.getElementById('result-emoji').textContent = a.emoji;
-    document.getElementById('result-title').textContent = a.label;
-    document.getElementById('result-pct').textContent   = `유사도 ${(top.probability * 100).toFixed(1)}%`;
-    document.getElementById('result-desc').textContent  = a.desc;
+    document.getElementById('result-emoji').textContent = a ? a.emoji : '🐾';
+    document.getElementById('result-title').textContent = data.label;
+    document.getElementById('result-pct').textContent   = t('result-pct', (top.probability * 100).toFixed(1));
+    document.getElementById('result-desc').textContent  = data.desc;
 
     const barsEl = document.getElementById('score-bars');
     barsEl.innerHTML = '';
@@ -391,7 +492,7 @@ function showResult(preds) {
         const row = document.createElement('div');
         row.className = 'score-row';
         row.innerHTML = `
-            <span class="score-label">${d ? d.emoji + ' ' + p.className : p.className}</span>
+            <span class="score-label">${d ? d[lang].name : p.className}</span>
             <div class="score-bar-bg">
                 <div class="score-bar-fill" data-pct="${p.probability}"
                      style="background: linear-gradient(90deg, ${d ? d.color : '#667eea'}, ${d ? d.color + 'bb' : '#764ba2'})"></div>
@@ -409,38 +510,11 @@ function showResult(preds) {
     }));
 }
 
-/* ── Reset ── */
 function resetToStart() {
     pendingImageSrc = null;
     document.getElementById('preview-img').src = '';
     showScreen('screen-start');
 }
 </script>
-
-<section class="info-section">
-    <h2>동물상 테스트란?</h2>
-    <p>동물상 테스트는 AI(인공지능) 이미지 분류 기술을 활용해 내 얼굴이 어떤 동물을 닮았는지 분석해주는 재미있는 테스트입니다. Google Teachable Machine으로 학습된 모델이 브라우저에서 직접 이미지를 분석하며, 업로드한 사진은 외부 서버로 전송되지 않아 개인정보가 안전하게 보호됩니다.</p>
-    <h2>어떤 동물상이 있나요?</h2>
-    <ul>
-        <li><strong>🐶 강아지상</strong> — 친근하고 따뜻한 눈빛, 사교적이고 의리 있는 매력</li>
-        <li><strong>🐱 고양이상</strong> — 신비롭고 도도한 눈빛, 독립적이고 세련된 매력</li>
-        <li><strong>🐢 거북이상</strong> — 묵직하고 신뢰감 있는 눈빛, 대기만성형 매력</li>
-    </ul>
-    <h2>이용 방법</h2>
-    <ol>
-        <li>얼굴이 잘 보이는 사진을 준비하세요.</li>
-        <li>사진 업로드 영역을 클릭하거나 이미지를 끌어다 놓으세요.</li>
-        <li>'분석하기' 버튼을 누르면 AI가 즉시 결과를 알려드립니다.</li>
-    </ol>
-</section>
-
-<footer class="site-footer">
-    <p>© 2026 FunTools. All rights reserved.</p>
-    <nav class="footer-nav">
-        <a href="index.html">← 메인으로</a>
-        <span>·</span>
-        <a href="privacy.html">개인정보처리방침</a>
-    </nav>
-</footer>
 </body>
 </html>

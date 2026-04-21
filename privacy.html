@@ -27,18 +27,29 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.07);
         }
 
-        h1 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin-bottom: 0.4rem;
-            color: #222;
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.8rem;
         }
 
-        .updated {
-            font-size: 0.85rem;
-            color: #999;
-            margin-bottom: 2rem;
+        .lang-toggle {
+            padding: 0.3rem 0.85rem;
+            border: 1.5px solid #aaa;
+            border-radius: 20px;
+            background: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: #666;
+            transition: border-color 0.2s, color 0.2s;
+            flex-shrink: 0;
         }
+        .lang-toggle:hover { border-color: #667eea; color: #667eea; }
+
+        h1 { font-size: 1.6rem; font-weight: 800; color: #222; }
+        .updated { font-size: 0.85rem; color: #999; margin-top: 0.3rem; }
 
         h2 {
             font-size: 1.05rem;
@@ -51,68 +62,131 @@
 
         p { margin-bottom: 0.8rem; font-size: 0.95rem; color: #555; }
 
-        ul {
-            padding-left: 1.4rem;
-            margin-bottom: 0.8rem;
-        }
-
+        ul { padding-left: 1.4rem; margin-bottom: 0.8rem; }
         ul li { font-size: 0.95rem; color: #555; margin-bottom: 0.3rem; }
 
         a { color: #667eea; text-decoration: none; }
         a:hover { text-decoration: underline; }
 
-        .footer-link {
-            display: inline-block;
-            margin-top: 2rem;
-            font-size: 0.9rem;
-            color: #667eea;
-        }
+        .footer-link { display: inline-block; margin-top: 2rem; font-size: 0.9rem; color: #667eea; }
+
+        .lang-content { display: none; }
+        .lang-content.active { display: block; }
     </style>
 </head>
 <body>
 <div class="wrap">
-    <h1>개인정보처리방침</h1>
-    <p class="updated">최종 업데이트: 2026년 4월 21일</p>
+    <div class="top-bar">
+        <div>
+            <h1 id="page-h1">개인정보처리방침</h1>
+            <p class="updated" id="page-updated">최종 업데이트: 2026년 4월 21일</p>
+        </div>
+        <button class="lang-toggle" onclick="Lang.toggle()">English</button>
+    </div>
 
-    <p>FunTools(이하 "본 사이트")는 이용자의 개인정보를 소중히 여기며, 관련 법령에 따라 개인정보를 보호하기 위해 노력합니다. 본 방침은 본 사이트가 어떤 정보를 수집하고 어떻게 사용하는지 설명합니다.</p>
+    <!-- Korean content -->
+    <div class="lang-content active" id="content-ko">
+        <p>FunTools(이하 "본 사이트")는 이용자의 개인정보를 소중히 여기며, 관련 법령에 따라 개인정보를 보호하기 위해 노력합니다. 본 방침은 본 사이트가 어떤 정보를 수집하고 어떻게 사용하는지 설명합니다.</p>
 
-    <h2>1. 수집하는 정보</h2>
-    <p>본 사이트는 이용자로부터 직접 개인정보를 수집하지 않습니다. 다만, 아래 제3자 서비스를 통해 자동으로 수집될 수 있습니다.</p>
-    <ul>
-        <li>방문 기록, 접속 IP, 브라우저 유형 등 (서버 로그)</li>
-        <li>쿠키 및 유사 기술을 통한 방문 패턴 정보</li>
-    </ul>
+        <h2>1. 수집하는 정보</h2>
+        <p>본 사이트는 이용자로부터 직접 개인정보를 수집하지 않습니다. 다만, 아래 제3자 서비스를 통해 자동으로 수집될 수 있습니다.</p>
+        <ul>
+            <li>방문 기록, 접속 IP, 브라우저 유형 등 (서버 로그)</li>
+            <li>쿠키 및 유사 기술을 통한 방문 패턴 정보</li>
+        </ul>
 
-    <h2>2. 제3자 광고 서비스 (Google AdSense)</h2>
-    <p>본 사이트는 Google AdSense를 통해 광고를 게재합니다. Google은 쿠키를 사용하여 이용자의 관심사에 맞는 광고를 표시할 수 있습니다.</p>
-    <ul>
-        <li>Google의 광고 쿠키 사용으로 인해 이전 방문 기록을 기반으로 한 맞춤 광고가 표시될 수 있습니다.</li>
-        <li>이용자는 <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google 광고 설정</a>에서 맞춤 광고를 비활성화할 수 있습니다.</li>
-        <li>Google의 개인정보 처리 방식에 대한 자세한 내용은 <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google 개인정보처리방침</a>을 참조하세요.</li>
-    </ul>
+        <h2>2. 제3자 광고 서비스 (Google AdSense)</h2>
+        <p>본 사이트는 Google AdSense를 통해 광고를 게재합니다. Google은 쿠키를 사용하여 이용자의 관심사에 맞는 광고를 표시할 수 있습니다.</p>
+        <ul>
+            <li>Google의 광고 쿠키 사용으로 인해 이전 방문 기록을 기반으로 한 맞춤 광고가 표시될 수 있습니다.</li>
+            <li>이용자는 <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google 광고 설정</a>에서 맞춤 광고를 비활성화할 수 있습니다.</li>
+            <li>Google의 개인정보 처리 방식에 대한 자세한 내용은 <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google 개인정보처리방침</a>을 참조하세요.</li>
+        </ul>
 
-    <h2>3. 제3자 서비스</h2>
-    <p>본 사이트는 아래 외부 서비스를 사용하며, 각 서비스의 개인정보처리방침이 별도로 적용됩니다.</p>
-    <ul>
-        <li><strong>Google AdSense</strong> — 광고 게재 (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">정책 보기</a>)</li>
-        <li><strong>Disqus</strong> — 댓글 서비스 (<a href="https://help.disqus.com/en/articles/1717103-disqus-privacy-policy" target="_blank" rel="noopener">정책 보기</a>)</li>
-        <li><strong>Google Teachable Machine</strong> — AI 이미지 분류 모델 (동물상 테스트)</li>
-        <li><strong>TensorFlow.js</strong> — 브라우저 내 AI 추론 (이미지 데이터는 서버로 전송되지 않음)</li>
-    </ul>
+        <h2>3. 제3자 서비스</h2>
+        <p>본 사이트는 아래 외부 서비스를 사용하며, 각 서비스의 개인정보처리방침이 별도로 적용됩니다.</p>
+        <ul>
+            <li><strong>Google AdSense</strong> — 광고 게재 (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">정책 보기</a>)</li>
+            <li><strong>Disqus</strong> — 댓글 서비스 (<a href="https://help.disqus.com/en/articles/1717103-disqus-privacy-policy" target="_blank" rel="noopener">정책 보기</a>)</li>
+            <li><strong>Google Teachable Machine</strong> — AI 이미지 분류 모델 (동물상 테스트)</li>
+            <li><strong>TensorFlow.js</strong> — 브라우저 내 AI 추론 (이미지 데이터는 서버로 전송되지 않음)</li>
+        </ul>
 
-    <h2>4. 쿠키 사용</h2>
-    <p>본 사이트는 사이트 테마 설정(다크/라이트 모드) 저장을 위해 브라우저 localStorage를 사용합니다. 이는 개인을 식별하는 정보를 포함하지 않습니다. 광고 쿠키는 Google AdSense에 의해 관리됩니다.</p>
+        <h2>4. 쿠키 사용</h2>
+        <p>본 사이트는 사이트 테마(다크/라이트 모드) 및 언어 설정 저장을 위해 브라우저 localStorage를 사용합니다. 이는 개인을 식별하는 정보를 포함하지 않습니다. 광고 쿠키는 Google AdSense에 의해 관리됩니다.</p>
 
-    <h2>5. 동물상 테스트의 이미지 처리</h2>
-    <p>동물상 테스트에 업로드된 이미지는 이용자의 브라우저 내에서만 처리되며, 외부 서버로 전송되거나 저장되지 않습니다.</p>
+        <h2>5. 동물상 테스트의 이미지 처리</h2>
+        <p>동물상 테스트에 업로드된 이미지는 이용자의 브라우저 내에서만 처리되며, 외부 서버로 전송되거나 저장되지 않습니다.</p>
 
-    <h2>6. 개인정보의 보유 및 이용 기간</h2>
-    <p>본 사이트는 이용자의 개인정보를 별도로 저장하지 않습니다. 제3자 서비스의 데이터 보유 정책은 해당 서비스의 방침을 따릅니다.</p>
+        <h2>6. 개인정보의 보유 및 이용 기간</h2>
+        <p>본 사이트는 이용자의 개인정보를 별도로 저장하지 않습니다. 제3자 서비스의 데이터 보유 정책은 해당 서비스의 방침을 따릅니다.</p>
 
-    <h2>7. 문의</h2>
-    <p>개인정보처리방침에 관한 문의는 메인 페이지의 제휴 문의 양식을 통해 연락해 주세요.</p>
+        <h2>7. 문의</h2>
+        <p>개인정보처리방침에 관한 문의는 메인 페이지의 제휴 문의 양식을 통해 연락해 주세요.</p>
 
-    <a class="footer-link" href="index.html">← 메인으로 돌아가기</a>
+        <a class="footer-link" href="index.html">← 메인으로 돌아가기</a>
+    </div>
+
+    <!-- English content -->
+    <div class="lang-content" id="content-en">
+        <p>FunTools ("this site") values your privacy and strives to protect your personal information in accordance with applicable laws. This policy explains what information is collected and how it is used.</p>
+
+        <h2>1. Information We Collect</h2>
+        <p>This site does not directly collect personal information from users. However, the following may be collected automatically through third-party services.</p>
+        <ul>
+            <li>Visit logs, IP address, browser type, etc. (server logs)</li>
+            <li>Visit pattern information via cookies and similar technologies</li>
+        </ul>
+
+        <h2>2. Third-Party Advertising (Google AdSense)</h2>
+        <p>This site displays ads through Google AdSense. Google may use cookies to show ads based on your interests.</p>
+        <ul>
+            <li>Google's advertising cookies may show personalized ads based on your browsing history.</li>
+            <li>You can disable personalized ads via <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google Ad Settings</a>.</li>
+            <li>For more details on how Google handles data, see the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</li>
+        </ul>
+
+        <h2>3. Third-Party Services</h2>
+        <p>This site uses the following external services, each governed by their own privacy policy.</p>
+        <ul>
+            <li><strong>Google AdSense</strong> — Advertising (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">View policy</a>)</li>
+            <li><strong>Disqus</strong> — Comment system (<a href="https://help.disqus.com/en/articles/1717103-disqus-privacy-policy" target="_blank" rel="noopener">View policy</a>)</li>
+            <li><strong>Google Teachable Machine</strong> — AI image classification model (Animal Face Test)</li>
+            <li><strong>TensorFlow.js</strong> — In-browser AI inference (image data is never sent to a server)</li>
+        </ul>
+
+        <h2>4. Cookies & Local Storage</h2>
+        <p>This site uses browser localStorage to save your theme (dark/light mode) and language preferences. This does not contain personally identifiable information. Advertising cookies are managed solely by Google AdSense.</p>
+
+        <h2>5. Image Processing in the Animal Face Test</h2>
+        <p>Images uploaded for the Animal Face Test are processed entirely within your browser and are never transmitted to or stored on any external server.</p>
+
+        <h2>6. Data Retention</h2>
+        <p>This site does not independently store any personal data. Data retention practices of third-party services are governed by their respective policies.</p>
+
+        <h2>7. Contact</h2>
+        <p>For questions about this Privacy Policy, please use the partnership inquiry form on the main page.</p>
+
+        <a class="footer-link" href="index.html">← Back to Home</a>
+    </div>
 </div>
+
+<script src="i18n.js"></script>
+<script>
+window.TRANSLATIONS = {
+    ko: { 'page-title': '개인정보처리방침 | FunTools' },
+    en: { 'page-title': 'Privacy Policy | FunTools' }
+};
+
+document.addEventListener('langchange', (e) => {
+    const lang = e.detail.lang;
+    document.getElementById('content-ko').classList.toggle('active', lang === 'ko');
+    document.getElementById('content-en').classList.toggle('active', lang === 'en');
+    document.getElementById('page-h1').textContent      = lang === 'ko' ? '개인정보처리방침' : 'Privacy Policy';
+    document.getElementById('page-updated').textContent = lang === 'ko' ? '최종 업데이트: 2026년 4월 21일' : 'Last updated: April 21, 2026';
+});
+
+Lang.init();
+</script>
 </body>
 </html>

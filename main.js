@@ -1,27 +1,42 @@
 class LottoGenerator extends HTMLElement {
+    static TEXTS = {
+        ko: { title: '로또 번호 추첨기', generate: '번호 생성', dark: '🌙 다크 모드', light: '☀️ 라이트 모드' },
+        en: { title: 'Lotto Number Generator', generate: 'Generate Numbers', dark: '🌙 Dark Mode', light: '☀️ Light Mode' }
+    };
+
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this.isDark = localStorage.getItem('theme') === 'dark';
+        this.currentLang = localStorage.getItem('lang') || 'ko';
         this.render();
         this.applyTheme();
     }
 
     applyTheme() {
         document.body.setAttribute('data-theme', this.isDark ? 'dark' : 'light');
+        const t = LottoGenerator.TEXTS[this.currentLang] || LottoGenerator.TEXTS.ko;
         const btn = this.shadowRoot.querySelector('.theme-toggle');
-        if (btn) btn.textContent = this.isDark ? '☀️ 라이트 모드' : '🌙 다크 모드';
-
+        if (btn) btn.textContent = this.isDark ? t.light : t.dark;
         const container = this.shadowRoot.querySelector('.lotto-container');
-        if (container) {
-            container.setAttribute('data-theme', this.isDark ? 'dark' : 'light');
-        }
+        if (container) container.setAttribute('data-theme', this.isDark ? 'dark' : 'light');
     }
 
     toggleTheme() {
         this.isDark = !this.isDark;
         localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
         this.applyTheme();
+    }
+
+    setLang(lang) {
+        this.currentLang = lang;
+        const t = LottoGenerator.TEXTS[lang] || LottoGenerator.TEXTS.ko;
+        const h1 = this.shadowRoot.querySelector('h1');
+        const genBtn = this.shadowRoot.querySelector('.generate-btn');
+        const themeBtn = this.shadowRoot.querySelector('.theme-toggle');
+        if (h1) h1.textContent = t.title;
+        if (genBtn) genBtn.textContent = t.generate;
+        if (themeBtn) themeBtn.textContent = this.isDark ? t.light : t.dark;
     }
 
     render() {
@@ -81,9 +96,7 @@ class LottoGenerator extends HTMLElement {
                     background-color: #4CAF50;
                     color: white;
                 }
-                .generate-btn:hover {
-                    background-color: #45a049;
-                }
+                .generate-btn:hover { background-color: #45a049; }
                 .theme-toggle {
                     background-color: transparent;
                     color: #555;
@@ -95,9 +108,7 @@ class LottoGenerator extends HTMLElement {
                     color: #bbb;
                     border-color: #555 !important;
                 }
-                .theme-toggle:hover {
-                    background-color: rgba(0,0,0,0.05);
-                }
+                .theme-toggle:hover { background-color: rgba(0,0,0,0.05); }
                 .lotto-container[data-theme="dark"] .theme-toggle:hover {
                     background-color: rgba(255,255,255,0.05);
                 }
@@ -123,7 +134,6 @@ class LottoGenerator extends HTMLElement {
         while (numbers.size < 6) {
             numbers.add(Math.floor(Math.random() * 45) + 1);
         }
-
         Array.from(numbers).sort((a, b) => a - b).forEach(number => {
             const circle = document.createElement('div');
             circle.className = 'number';
@@ -143,3 +153,8 @@ class LottoGenerator extends HTMLElement {
 }
 
 customElements.define('lotto-generator', LottoGenerator);
+
+document.addEventListener('langchange', (e) => {
+    const el = document.querySelector('lotto-generator');
+    if (el) el.setLang(e.detail.lang);
+});
