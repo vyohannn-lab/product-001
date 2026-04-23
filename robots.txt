@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /blueprint.md
+
+User-agent: Yeti
+Allow: /
+
+Sitemap: https://vyohannn-lab.github.io/product-001/sitemap.xml
