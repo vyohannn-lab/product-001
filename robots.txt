@@ -5,4 +5,4 @@ Disallow: /blueprint.md
 User-agent: Yeti
 Allow: /
 
-Sitemap: https://vyohannn-lab.github.io/product-001/sitemap.xml
+Sitemap: https://hamsterman.sbs/sitemap.xml
