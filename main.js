@@ -106,6 +106,10 @@ class LottoGenerator extends HTMLElement {
                 font-size: 1.2rem;
                 font-weight: 700;
                 color: #fff;
+                transition: background-color 0.12s, transform 0.15s;
+            }
+            .number.pop {
+                transform: scale(1.2);
             }
             .actions {
                 display: flex;
@@ -125,10 +129,11 @@ class LottoGenerator extends HTMLElement {
                 cursor: pointer;
                 border: none;
                 border-radius: 5px;
-                transition: background-color .3s;
+                transition: background-color .3s, opacity .2s;
             }
             .gen-btn { background-color: #4CAF50; color: #fff; }
-            .gen-btn:hover { background-color: #45a049; }
+            .gen-btn:hover:not(:disabled) { background-color: #45a049; }
+            .gen-btn:disabled { opacity: 0.45; cursor: not-allowed; }
             .theme-toggle {
                 background-color: transparent;
                 color: #555;
@@ -161,8 +166,15 @@ class LottoGenerator extends HTMLElement {
         const t = LottoGenerator.TEXTS[this.currentLang] || LottoGenerator.TEXTS.ko;
         const gamesEl = this.shadowRoot.querySelector('.games');
         gamesEl.innerHTML = '';
-        for (let i = 0; i < count; i++) {
-            const nums = this.pickNumbers();
+
+        // Disable buttons during animation
+        this.shadowRoot.querySelectorAll('.gen-btn').forEach(b => { b.disabled = true; });
+
+        // Pre-compute final results
+        const finalGames = Array.from({ length: count }, () => this.pickNumbers());
+
+        // Build rows with placeholder slots
+        const gameRows = finalGames.map((finalNums, i) => {
             const row = document.createElement('div');
             row.className = 'game-row';
             if (count > 1) {
@@ -173,22 +185,71 @@ class LottoGenerator extends HTMLElement {
             }
             const numsDiv = document.createElement('div');
             numsDiv.className = 'numbers';
-            nums.forEach(n => {
+            for (let j = 0; j < 6; j++) {
                 const d = document.createElement('div');
                 d.className = 'number';
-                d.textContent = n;
-                d.style.backgroundColor = this.getColor(n);
+                d.style.backgroundColor = '#bbb';
+                d.textContent = '?';
                 numsDiv.appendChild(d);
-            });
+            }
             row.appendChild(numsDiv);
             gamesEl.appendChild(row);
-        }
+            return { divs: Array.from(numsDiv.querySelectorAll('.number')), finalNums };
+        });
+
+        // Phase 1 (0–2s): fast random spin every 80ms
+        // Phase 2 (2–2.8s): slow spin every 180ms (feels like slowing down)
+        // Phase 3 (2.8s+): reveal final numbers slot by slot, 110ms apart → total ~3.5s
+        const spin = () => {
+            gameRows.forEach(({ divs }) => {
+                divs.forEach(d => {
+                    const n = this.pickRandom();
+                    d.textContent = n;
+                    d.style.backgroundColor = this.getColor(n);
+                });
+            });
+        };
+
+        let fastTimer = setInterval(spin, 80);
+
+        setTimeout(() => {
+            clearInterval(fastTimer);
+            let slowTimer = setInterval(spin, 180);
+
+            setTimeout(() => {
+                clearInterval(slowTimer);
+
+                // Reveal slot by slot
+                gameRows.forEach(({ divs, finalNums }) => {
+                    divs.forEach((d, idx) => {
+                        setTimeout(() => {
+                            d.textContent = finalNums[idx];
+                            d.style.backgroundColor = this.getColor(finalNums[idx]);
+                            d.classList.add('pop');
+                            setTimeout(() => d.classList.remove('pop'), 180);
+                        }, idx * 110);
+                    });
+                });
+
+                // Re-enable buttons after last slot pops
+                const lastSlotDelay = 5 * 110 + 250;
+                setTimeout(() => {
+                    this.shadowRoot.querySelectorAll('.gen-btn').forEach(b => { b.disabled = false; });
+                }, lastSlotDelay);
+
+            }, 800); // slow phase duration
+
+        }, 2000); // fast phase duration
     }
 
     pickNumbers() {
         const s = new Set();
         while (s.size < 6) s.add(Math.floor(Math.random() * 45) + 1);
         return Array.from(s).sort((a, b) => a - b);
+    }
+
+    pickRandom() {
+        return Math.floor(Math.random() * 45) + 1;
     }
 
     getColor(n) {

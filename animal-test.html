@@ -48,7 +48,7 @@
       "@type": "WebApplication",
       "name": "AI 동물상 테스트",
       "url": "https://hamsterman.sbs/animal-test.html",
-      "description": "사진 한 장으로 AI가 13가지 동물상 중 어떤 동물을 닮았는지 무료로 분析해드립니다.",
+      "description": "사진 한 장으로 AI가 13가지 동물상 중 어떤 동물을 닮았는지 무료로 분석해드립니다.",
       "applicationCategory": "EntertainmentApplication",
       "operatingSystem": "Web",
       "inLanguage": ["ko", "en"],
@@ -70,7 +70,7 @@
           "name": "동물상 테스트는 어떻게 작동하나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Google Teachable Machine으로 학습된 컨볼루션 신경망(CNN) 모델이 브라우저에서 직접 실행됩니다. 이미지를 224×224 픽셀로 전처리한 후 강아지·고양이·거북이 계열 유사도를 분析하여 13가지 동물상 중 하나를 결과로 제공합니다. 분析은 평균 3초 이내에 완료됩니다."
+            "text": "Google Teachable Machine으로 학습된 컨볼루션 신경망(CNN) 모델이 브라우저에서 직접 실행됩니다. 이미지를 224×224 픽셀로 전처리한 후 강아지·고양이·거북이 계열 유사도를 분석하여 13가지 동물상 중 하나를 결과로 제공합니다. 분석은 평균 3초 이내에 완료됩니다."
           }
         },
         {
@@ -78,7 +78,7 @@
           "name": "업로드한 사진은 서버에 저장되나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "아니오. 업로드한 사진은 외부 서버로 전송되지 않습니다. 모든 AI 추론은 이용자의 브라우저(기기) 내에서만 처리되며, 분析 후 이미지 데이터는 어디에도 저장되지 않습니다."
+            "text": "아니오. 업로드한 사진은 외부 서버로 전송되지 않습니다. 모든 AI 추론은 이용자의 브라우저(기기) 내에서만 처리되며, 분석 후 이미지 데이터는 어디에도 저장되지 않습니다."
           }
         },
         {
@@ -113,7 +113,7 @@
       "@context": "https://schema.org",
       "@type": "HowTo",
       "name": "AI 동물상 테스트 이용 방법",
-      "description": "사진 한 장으로 AI가 13가지 동물상 중 어떤 동물을 닮았는지 분析하는 방법",
+      "description": "사진 한 장으로 AI가 13가지 동물상 중 어떤 동물을 닮았는지 분석하는 방법",
       "totalTime": "PT1M",
       "step": [
         {
@@ -131,8 +131,8 @@
         {
           "@type": "HowToStep",
           "position": 3,
-          "name": "AI 분析 및 결과 확인",
-          "text": "'분析하기' 버튼을 누르면 AI 모델이 로딩된 후 평균 3초 이내에 13가지 동물상 중 결과를 알려드립니다."
+          "name": "AI 분석 및 결과 확인",
+          "text": "'분석하기' 버튼을 누르면 AI 모델이 로딩된 후 평균 3초 이내에 13가지 동물상 중 결과를 알려드립니다."
         }
       ]
     }
@@ -386,7 +386,7 @@
 <div class="container">
     <div class="header">
         <h1 data-i18n="page-h1">AI 동물상 테스트</h1>
-        <p data-i18n="page-sub">사진 한 장으로 AI가 나의 동물상을 분析해드려요</p>
+        <p data-i18n="page-sub">사진 한 장으로 AI가 나의 동물상을 분석해드려요</p>
         <button class="lang-toggle" onclick="Lang.toggle()">English</button>
     </div>
 
@@ -420,7 +420,7 @@
             <div class="preview-wrap">
                 <img id="preview-img" alt="preview">
             </div>
-            <button class="btn btn-primary" data-i18n="btn-analyze" onclick="analyze()">✨ 분析하기</button>
+            <button class="btn btn-primary" data-i18n="btn-analyze" onclick="analyze()">✨ 분석하기</button>
             <button class="btn btn-secondary" data-i18n="btn-back" onclick="resetToStart()">← 다른 사진 선택</button>
         </div>
 
@@ -504,28 +504,28 @@ const ANIMALS = {
     // Cat family
     '러시안블루': {
         emoji: '🐈', color: '#6a9ab0',
-        ko: { label: '러시안블루상', desc: '우아하고 신비로운 당신! 말 한 마디, 눈빛 하나에도 품격이 느껴지는 타입이에요. 쉽게 속내를 드러내지 않지만, 알면 알수록 그 매력에 빠져드는 고급스러운 존재람니다. 💎' },
+        ko: { label: '러시안블루상', desc: '우아하고 신비로운 당신! 말 한 마디, 눈빛 하나에도 품격이 느껴지는 타입이에요. 쉽게 속내를 드러내지 않지만, 알면 알수록 그 매력에 빠져드는 고급스러운 존재랍니다. 💎' },
         en: { label: 'Russian Blue Type', desc: "Elegant and enigmatic! Every word and glance you give carries quiet dignity. You rarely reveal what's inside, but those who truly know you fall deeper the more they discover. 💎" }
     },
     '호랑이': {
         emoji: '🐯', color: '#d4872a',
-        ko: { label: '호랑이상', desc: '강력한 카리스마를 뉷어내는 당신! 등장만으로 분위기를 바꾸는 압도적인 존재감의 소유자예요. 도전을 두려워하지 않고 목표를 향해 거침없이 나아가는 진정한 리더랍니다. 🔥' },
+        ko: { label: '호랑이상', desc: '강렬한 카리스마를 뿜어내는 당신! 등장만으로 분위기를 바꾸는 압도적인 존재감의 소유자예요. 도전을 두려워하지 않고 목표를 향해 거침없이 나아가는 진정한 리더랍니다. 🔥' },
         en: { label: 'Tiger Type', desc: "Radiating fierce charisma! Your presence alone shifts the energy in any room. You charge toward goals without fear — a true leader born to take on any challenge. 🔥" }
     },
     '시바이누': {
         emoji: '🦮', color: '#c8853a',
-        ko: { label: '시바이누상', desc: '도도하면서도 귀여운 반전 매력의 당신! 첫눔에는 쿨해 보이지만 가까이하면 할수록 의외의 순수함에 빠지게 되는 타입이에요. 자존감 높고 자기 스타일이 뚤렷한 개성파랍니다. 🍁' },
+        ko: { label: '시바이누상', desc: '도도하면서도 귀여운 반전 매력의 당신! 처음에는 쿨해 보이지만 가까이하면 할수록 의외의 순수함에 빠지게 되는 타입이에요. 자존감 높고 자기 스타일이 뚜렷한 개성파랍니다. 🍁' },
         en: { label: 'Shiba Inu Type', desc: "Cool on the outside, surprisingly pure on the inside! You seem aloof at first, but the closer people get, the more they're charmed by your unexpected warmth. High self-esteem and a style all your own. 🍁" }
     },
     '토끼': {
         emoji: '🐇', color: '#e89dba',
-        ko: { label: '토끼상', desc: '순수하고 사랑스러운 당신! 맑고 투명한 눈빛으로 주변 사람들의 마음을 녹이는 타입이에요. 섯세한 감수성을 가졌지만, 그만큼 깊고 진한 감정을 느끼는 감성파랍니다. 🌸' },
+        ko: { label: '토끼상', desc: '순수하고 사랑스러운 당신! 맑고 투명한 눈빛으로 주변 사람들의 마음을 녹이는 타입이에요. 섬세한 감수성을 가졌지만, 그만큼 깊고 진한 감정을 느끼는 감성파랍니다. 🌸' },
         en: { label: 'Rabbit Type', desc: "Pure and undeniably lovable! Your clear, sincere eyes melt the hearts of everyone around you. Sensitive and easily moved — you experience emotions with rare depth and beauty. 🌸" }
     },
     // Turtle family
     '거북이': {
         emoji: '🐢', color: '#52b788',
-        ko: { label: '거북이상', desc: '묵직하고 신뢰감 넘치는 당신! 느긋해 보여도 중요한 순간에 누구보다 강한 의지를 발휘하는 타입이에요. 오래 사귀는 공 매력이 빛나는 대기만성형! 🍀' },
+        ko: { label: '거북이상', desc: '묵직하고 신뢰감 넘치는 당신! 느긋해 보여도 중요한 순간에 누구보다 강한 의지를 발휘하는 타입이에요. 오래 사귈수록 그 매력이 빛나는 대기만성형! 🍀' },
         en: { label: 'Turtle Type', desc: "Steady and deeply trustworthy! You may seem laid-back, but when it counts you show incredible determination. A slow-burn charmer — the more people know you, the more they adore you. 🍀" }
     },
     '곰': {
@@ -535,18 +535,18 @@ const ANIMALS = {
     },
     '팬더': {
         emoji: '🐼', color: '#8b9d8b',
-        ko: { label: '팬더상', desc: '귀엽고 여유로운 당신! 흔백의 독특한 매력이실 상반되는 면을 모두 가진 다점로운 타입이에요. 노력하는 것처럼 안 보여도 은근히 능력 있는, 알면 알수록 신기한 사람이에요. 🎋' },
+        ko: { label: '팬더상', desc: '귀엽고 여유로운 당신! 흑백의 독특한 매력처럼 상반되는 면을 모두 가진 다채로운 타입이에요. 노력하는 것처럼 안 보여도 은근히 능력 있는, 알면 알수록 신기한 사람이에요. 🎋' },
         en: { label: 'Panda Type', desc: "Cute and effortlessly cool! Like a panda's striking contrast, you contain multitudes. You don't seem to be trying hard, but you're quietly capable in ways that surprise everyone. 🎋" }
     },
     '수달': {
         emoji: '🦦', color: '#7aaa9a',
-        ko: { label: '수달상', desc: '활발하고 사교적인 당신! 넘치는 호기심과 유쿨한 에너지로 어디서든 분위기를 살리는 타입이에요. 함께 있으면 지루할 틀이 없는, 살아있는 엔터테이너랍니다! 🎉' },
+        ko: { label: '수달상', desc: '활발하고 사교적인 당신! 넘치는 호기심과 유쾌한 에너지로 어디서든 분위기를 살리는 타입이에요. 함께 있으면 지루할 틈이 없는, 살아있는 엔터테이너랍니다! 🎉' },
         en: { label: 'Otter Type', desc: "Playful and sociable! Your boundless curiosity and cheerful energy bring life to any gathering. There's never a dull moment with you around — you're a natural-born entertainer. 🎉" }
     },
     // Balanced
     '햄스터': {
         emoji: '🐹', color: '#d4a76a',
-        ko: { label: '햄스터상', desc: '다재다능한 매력의 소유자! 강아지의 친근함, 고양이의 독립성, 거북이의 여유로움을 고루 갖춰 희귀한 타입이에요. 어떤 상황에도 잘 적응하며, 만나는 모든 사람과 특별한 인연을 만들어가는 매력인이랍니다. ✨' },
+        ko: { label: '햄스터상', desc: '다재다능한 매력의 소유자! 강아지의 친근함, 고양이의 독립성, 거북이의 여유로움을 고루 갖춘 희귀한 타입이에요. 어떤 상황에도 잘 적응하며, 만나는 모든 사람과 특별한 인연을 만들어가는 매력인이랍니다. ✨' },
         en: { label: 'Hamster Type', desc: "A rare blend of every quality! You carry the friendliness of a dog, the independence of a cat, and the calm of a turtle all at once. You adapt to any situation and create a special bond with everyone you meet. ✨" }
     },
 };
@@ -593,9 +593,9 @@ const INFO = {
             <li><strong>🦊 여우상</strong> — 영리하고 매혹적인 반전 매력</li>
             <li><strong>🐩 포메라니안상</strong> — 활발하고 사랑스러운 에너지</li>
             <li><strong>🐈 러시안블루상</strong> — 우아하고 신비로운 분위기</li>
-            <li><strong>🐯 호랑이상</strong> — 강렴한 카리스마와 리더십</li>
+            <li><strong>🐯 호랑이상</strong> — 강렬한 카리스마와 리더십</li>
             <li><strong>🦮 시바이누상</strong> — 도도하면서도 귀여운 반전</li>
-            <li><strong>🐇 토끼상</strong> — 순수하고 섯세한 감수성</li>
+            <li><strong>🐇 토끼상</strong> — 순수하고 섬세한 감수성</li>
             <li><strong>🐢 거북이상</strong> — 묵직하고 신뢰감 있는 안정감</li>
             <li><strong>🐻 곰상</strong> — 든든하고 포근한 존재감</li>
             <li><strong>🐼 팬더상</strong> — 귀엽고 여유로운 다중 매력</li>
@@ -612,7 +612,7 @@ const INFO = {
         <ol>
             <li>얼굴이 잘 보이는 사진을 준비하세요.</li>
             <li>사진 업로드 영역을 클릭하거나 이미지를 끌어다 놓으세요.</li>
-            <li>'분析하기' 버튼을 누르면 AI가 평균 3초 이내에 동물상 결과를 알려드립니다.</li>
+            <li>'분석하기' 버튼을 누르면 AI가 평균 3초 이내에 동물상 결과를 알려드립니다.</li>
         </ol>`,
     en: `
         <h2>What is the Animal Face Test?</h2>
@@ -649,18 +649,18 @@ const INFO = {
 
 window.TRANSLATIONS = {
     ko: {
-        'page-title': 'AI 동물상 테스트 — 13가지 동물상 무료 분析 | FunTools',
+        'page-title': 'AI 동물상 테스트 — 13가지 동물상 무료 분석 | FunTools',
         'page-h1': 'AI 동물상 테스트',
-        'page-sub': '사진 한 장으로 AI가 나의 동물상을 분析해드려요',
+        'page-sub': '사진 한 장으로 AI가 나의 동물상을 분석해드려요',
         'desc-text': '사진을 올리면 AI가<br><strong>13가지 동물상</strong> 중<br>당신과 가장 닮은 동물을 알려드릴게요!',
         'drop-title': '사진을 클릭하거나 끌어다 놓으세요',
         'drop-sub': 'JPG · PNG · WEBP 등 이미지 파일',
-        'btn-analyze': '✨ 분析하기',
+        'btn-analyze': '✨ 분석하기',
         'btn-back': '← 다른 사진 선택',
         'btn-retake': '🔄 다시 테스트하기',
         'loading-model': 'AI 모델을 불러오는 중...',
-        'loading-analyze': '분析 중...',
-        'error-analyze': '분析 중 오류가 발생했습니다. 다시 시도해주세요.',
+        'loading-analyze': '분석 중...',
+        'error-analyze': '분석 중 오류가 발생했습니다. 다시 시도해주세요.',
         'result-pct': (pct) => `유사도 ${pct}%`,
         'footer-home': '← 메인으로',
         'footer-privacy': '개인정보처리방침',
