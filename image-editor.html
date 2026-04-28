@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L7MKMMWJH9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-L7MKMMWJH9');
+    </script>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 어노테이터 — 사진 위에 펜·박스·화살표·메모 | FunTools</title>
+    <meta name="description" content="사진 위에 펜, 박스, 화살표, 스티커 메모로 자유롭게 낙서하고 메모하세요. 무료 브라우저 기반 이미지 어노테이션 도구.">
+    <meta name="keywords" content="이미지 편집, 사진 낙서, 어노테이션, 화살표, 메모, 이미지 마킹">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="FunTools">
+    <meta name="theme-color" content="#1e1e1e">
+    <link rel="canonical" href="https://hamsterman.sbs/image-editor.html">
+    <link rel="alternate" hreflang="x-default" href="https://hamsterman.sbs/image-editor.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="FunTools">
+    <meta property="og:title" content="이미지 어노테이터 — 사진에 펜·박스·화살표·메모">
+    <meta property="og:description" content="사진 위에 펜, 박스, 화살표, 스티커 메모로 자유롭게 낙서하고 메모하세요. 무료 브라우저 기반 어노테이션 도구.">
+    <meta property="og:url" content="https://hamsterman.sbs/image-editor.html">
+    <meta property="og:locale" content="ko_KR">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="이미지 어노테이터 — 사진에 펜·박스·화살표·메모">
+    <meta name="twitter:description" content="사진 위에 펜, 박스, 화살표, 스티커 메모로 자유롭게 낙서하고 메모하세요.">
+    <link rel="icon" href="hamsterman.ico" type="image/x-icon">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7044177607385540" crossorigin="anonymous"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: #1a1a1a;
+            color: #e6e6e6;
+            font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100dvh;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* ── Top bar ─────────────────────────────────── */
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0 0.75rem;
+            height: 48px;
+            background: #252525;
+            border-bottom: 1px solid #333;
+            flex-shrink: 0;
+            z-index: 20;
+        }
+
+        .topbar-home {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 8px;
+            background: transparent;
+            color: rgba(230,230,230,0.5);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: background 0.15s, color 0.15s;
+            white-space: nowrap;
+        }
+        .topbar-home:hover { background: rgba(255,255,255,0.08); color: #e6e6e6; }
+
+        .topbar-title {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #c8c8c8;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .topbar-sep { width: 1px; height: 20px; background: #3a3a3a; margin: 0 0.15rem; }
+
+        .topbar-btn {
+            padding: 0.3rem 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.15s, opacity 0.15s;
+        }
+
+        .btn-upload { background: #383838; color: #d8d8d8; }
+        .btn-upload:hover { background: #484848; }
+
+        .btn-new { background: #2d2d2d; color: #a0a0a0; }
+        .btn-new:hover { background: #3a3a3a; color: #c8c8c8; }
+
+        .btn-export {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 2px 8px rgba(102,126,234,0.35);
+        }
+        .btn-export:hover { opacity: 0.88; }
+        .btn-export:disabled { opacity: 0.4; cursor: default; }
+
+        /* ── Main layout ─────────────────────────────── */
+        .main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        /* ── Sidebar / Toolbar ───────────────────────── */
+        .sidebar {
+            width: 68px;
+            background: #222;
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.6rem 0;
+            gap: 0.3rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            flex-shrink: 0;
+            scrollbar-width: none;
+        }
+        .sidebar::-webkit-scrollbar { display: none; }
+
+        .sidebar-label {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: #555;
+            text-transform: uppercase;
+            margin: 0.2rem 0 0;
+        }
+
+        .sidebar-divider {
+            width: 36px;
+            height: 1px;
+            background: #333;
+            margin: 0.3rem 0;
+        }
+
+        .tool-btn {
+            width: 50px;
+            height: 46px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            background: transparent;
+            border: 1.5px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #777;
+            font-size: 1.25rem;
+            transition: background 0.15s, color 0.15s, border-color 0.15s;
+        }
+        .tool-btn .lbl {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            line-height: 1;
+        }
+        .tool-btn:hover { background: rgba(255,255,255,0.07); color: #c8c8c8; }
+        .tool-btn.active {
+            background: rgba(102,126,234,0.18);
+            border-color: rgba(102,126,234,0.45);
+            color: #9aabf0;
+        }
+        .tool-btn.active .lbl { color: #8898e8; }
+
+        .color-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            outline: 2px solid transparent;
+            transition: transform 0.12s, outline-color 0.12s;
+            flex-shrink: 0;
+        }
+        .color-dot:hover { transform: scale(1.2); }
+        .color-dot.sel {
+            outline-color: #fff;
+            outline-offset: 2px;
+            transform: scale(1.15);
+        }
+
+        .color-pick-btn {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px dashed #555;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: #555;
+            transition: border-color 0.15s, color 0.15s;
+        }
+        .color-pick-btn:hover { border-color: #888; color: #aaa; }
+
+        .stroke-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stroke-preview {
+            width: 32px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stroke-dot {
+            background: #667eea;
+            border-radius: 50%;
+            width: 4px;
+            height: 4px;
+            transition: width 0.1s, height 0.1s;
+        }
+
+        input[type=range].stroke-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            writing-mode: vertical-lr;
+            direction: rtl;
+            width: 4px;
+            height: 56px;
+            background: #3a3a3a;
+            border-radius: 2px;
+            cursor: pointer;
+            outline: none;
+        }
+        input[type=range].stroke-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 4px rgba(102,126,234,0.5);
+        }
+        input[type=range].stroke-slider::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            background: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .icon-action-btn {
+            width: 50px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #666;
+            font-size: 1rem;
+            transition: background 0.15s, color 0.15s;
+        }
+        .icon-action-btn:hover { background: rgba(255,255,255,0.07); color: #c8c8c8; }
+        .icon-action-btn.del:hover { background: rgba(239,68,68,0.15); color: #f87171; }
+        .icon-action-btn:disabled { opacity: 0.3; cursor: default; }
+        .icon-action-btn:disabled:hover { background: transparent; color: #666; }
+
+        /* ── Canvas area ─────────────────────────────── */
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+            padding: 1.5rem;
+            background: #181818;
+            position: relative;
+            min-height: 0;
+        }
+
+        .upload-hint {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            pointer-events: none;
+            text-align: center;
+        }
+        .upload-hint-icon { font-size: 3.5rem; opacity: 0.18; }
+        .upload-hint-main { font-size: 0.95rem; font-weight: 700; color: rgba(230,230,230,0.25); }
+        .upload-hint-sub  { font-size: 0.78rem; color: rgba(230,230,230,0.15); }
+
+        #main-canvas {
+            display: block;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
+            cursor: crosshair;
+            touch-action: none;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        #main-canvas.cur-text  { cursor: text; }
+        #main-canvas.cur-cell  { cursor: cell; }
+
+        /* ── Text input overlay ──────────────────────── */
+        .text-overlay {
+            position: fixed;
+            z-index: 200;
+            min-width: 140px;
+            max-width: 280px;
+            padding: 0.4rem 0.7rem;
+            background: #1e1e1e;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            color: #e6e6e6;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        /* ── Keyboard hint strip ─────────────────────── */
+        .hint-strip {
+            height: 22px;
+            background: #1c1c1c;
+            border-top: 1px solid #2c2c2c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            flex-shrink: 0;
+            padding: 0 1rem;
+        }
+        .hint-strip span {
+            font-size: 0.66rem;
+            color: #444;
+            white-space: nowrap;
+        }
+        .hint-strip kbd {
+            font-family: inherit;
+            background: #2a2a2a;
+            color: #666;
+            border: 1px solid #3a3a3a;
+            border-radius: 3px;
+            padding: 0 3px;
+            font-size: 0.62rem;
+        }
+
+        /* ── Mobile bottom bar ───────────────────────── */
+        @media (max-width: 600px) {
+            .topbar-title { display: none; }
+            .topbar-sep { display: none; }
+            .btn-new { display: none; }
+
+            .sidebar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 64px;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 0 0.5rem;
+                border-right: none;
+                border-top: 1px solid #333;
+                overflow-x: auto;
+                overflow-y: hidden;
+                gap: 0.2rem;
+                z-index: 30;
+            }
+
+            .sidebar-label { display: none; }
+            .sidebar-divider { width: 1px; height: 36px; margin: 0 0.2rem; }
+            .tool-btn { width: 46px; height: 50px; flex-shrink: 0; }
+
+            input[type=range].stroke-slider {
+                writing-mode: horizontal-tb;
+                direction: ltr;
+                width: 56px;
+                height: 4px;
+            }
+
+            .stroke-wrap { flex-direction: row; gap: 6px; }
+            .stroke-preview { display: none; }
+
+            .canvas-area {
+                padding: 1rem;
+                padding-bottom: 80px;
+            }
+
+            .hint-strip { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+    <a href="index.html" class="topbar-home">← 홈</a>
+    <div class="topbar-sep"></div>
+    <span class="topbar-title">✏️ 이미지 어노테이터</span>
+    <button class="topbar-btn btn-upload" id="upload-btn" onclick="document.getElementById('file-input').click()">📁 사진 열기</button>
+    <button class="topbar-btn btn-new"    id="new-btn"    onclick="newBlankCanvas()">🗋 새 캔버스</button>
+    <div class="topbar-sep"></div>
+    <button class="topbar-btn btn-export" id="export-btn" onclick="exportImage()" disabled>💾 저장</button>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+    <!-- Sidebar toolbar -->
+    <div class="sidebar" id="sidebar">
+
+        <span class="sidebar-label">도구</span>
+
+        <button class="tool-btn active" data-tool="pen"   onclick="setTool('pen')"   title="펜 (P)">
+            ✏️<span class="lbl">펜</span>
+        </button>
+        <button class="tool-btn" data-tool="rect"         onclick="setTool('rect')"  title="박스 (R)">
+            ▭<span class="lbl">박스</span>
+        </button>
+        <button class="tool-btn" data-tool="arrow"        onclick="setTool('arrow')" title="화살표 (A)">
+            ➜<span class="lbl">화살표</span>
+        </button>
+        <button class="tool-btn" data-tool="text"         onclick="setTool('text')"  title="메모 (T)">
+            💬<span class="lbl">메모</span>
+        </button>
+
+        <div class="sidebar-divider"></div>
+        <span class="sidebar-label">색상</span>
+
+        <div class="color-dot sel" style="background:#ef4444" data-color="#ef4444" onclick="pickDot(this)" title="빨강"></div>
+        <div class="color-dot"    style="background:#f97316" data-color="#f97316" onclick="pickDot(this)" title="주황"></div>
+        <div class="color-dot"    style="background:#eab308" data-color="#eab308" onclick="pickDot(this)" title="노랑"></div>
+        <div class="color-dot"    style="background:#22c55e" data-color="#22c55e" onclick="pickDot(this)" title="초록"></div>
+        <div class="color-dot"    style="background:#3b82f6" data-color="#3b82f6" onclick="pickDot(this)" title="파랑"></div>
+        <div class="color-dot"    style="background:#a855f7" data-color="#a855f7" onclick="pickDot(this)" title="보라"></div>
+        <div class="color-dot"    style="background:#f8fafc" data-color="#f8fafc" onclick="pickDot(this)" title="흰색"></div>
+        <div class="color-dot"    style="background:#111827" data-color="#111827" onclick="pickDot(this)" title="검정"></div>
+
+        <input type="color" id="color-picker" value="#ef4444"
+               style="opacity:0;position:absolute;pointer-events:none;width:0;height:0"
+               oninput="pickCustom(this.value)">
+        <button class="color-pick-btn" onclick="document.getElementById('color-picker').click()" title="직접 선택">+</button>
+
+        <div class="sidebar-divider"></div>
+        <span class="sidebar-label">굵기</span>
+
+        <div class="stroke-wrap">
+            <div class="stroke-preview">
+                <div class="stroke-dot" id="stroke-dot"></div>
+            </div>
+            <input type="range" class="stroke-slider" id="stroke-slider"
+                   min="1" max="20" value="3"
+                   oninput="onStrokeChange(this.value)">
+        </div>
+
+        <div class="sidebar-divider"></div>
+
+        <button class="icon-action-btn" id="undo-btn" onclick="undo()" disabled title="실행취소 (Ctrl+Z)">↩</button>
+        <button class="icon-action-btn del" id="clear-btn" onclick="clearAll()" title="전체 지우기">🗑</button>
+
+    </div>
+
+    <!-- Canvas area -->
+    <div class="canvas-area" id="canvas-area"
+         ondragover="event.preventDefault(); event.dataTransfer.dropEffect='copy';"
+         ondrop="onDrop(event)">
+        <div class="upload-hint" id="upload-hint">
+            <div class="upload-hint-icon">🖼️</div>
+            <p class="upload-hint-main">사진을 열거나 여기에 끌어다 놓으세요</p>
+            <p class="upload-hint-sub">JPG · PNG · WEBP · GIF · WEBM</p>
+        </div>
+        <canvas id="main-canvas"></canvas>
+    </div>
+
+</div>
+
+<!-- Keyboard hint strip -->
+<div class="hint-strip">
+    <span><kbd>P</kbd> 펜</span>
+    <span><kbd>R</kbd> 박스</span>
+    <span><kbd>A</kbd> 화살표</span>
+    <span><kbd>T</kbd> 메모</span>
+    <span><kbd>Ctrl</kbd>+<kbd>Z</kbd> 실행취소</span>
+    <span><kbd>Del</kbd> 전체 지우기</span>
+</div>
+
+<!-- Hidden file input -->
+<input type="file" id="file-input" accept="image/*" onchange="onFileInput(event)" style="display:none">
+
+<script>
+/* ─── State ──────────────────────────────────────────────── */
+const canvas   = document.getElementById('main-canvas');
+const ctx      = canvas.getContext('2d');
+const area     = document.getElementById('canvas-area');
+const hint     = document.getElementById('upload-hint');
+const undoBtn  = document.getElementById('undo-btn');
+const expBtn   = document.getElementById('export-btn');
+const strokeDot = document.getElementById('stroke-dot');
+
+let bgImage    = null;   // HTMLImageElement
+let ops        = [];     // completed operations
+let isDrawing  = false;
+let startX = 0, startY = 0;
+let livePath   = [];     // for pen live preview
+let tool       = 'pen';
+let color      = '#ef4444';
+let strokeW    = 3;
+let hasCanvas  = false;
+let textEl     = null;   // floating <input>
+
+/* ─── Canvas init ────────────────────────────────────────── */
+function setCanvasSize(w, h) {
+    canvas.width  = w;
+    canvas.height = h;
+    hasCanvas = true;
+    hint.style.display = 'none';
+    expBtn.disabled = false;
+    redraw();
+}
+
+function loadImage(src) {
+    const img = new Image();
+    img.onload = () => {
+        bgImage = img;
+        const maxW = area.clientWidth  - 32;
+        const maxH = area.clientHeight - 32;
+        const ratio = Math.min(maxW / img.width, maxH / img.height, 1);
+        ops = [];
+        setCanvasSize(Math.round(img.width * ratio), Math.round(img.height * ratio));
+        syncUndoBtn();
+    };
+    img.src = src;
+}
+
+function newBlankCanvas() {
+    const w = Math.min(area.clientWidth  - 32, 900);
+    const h = Math.min(area.clientHeight - 32, 680);
+    bgImage = null;
+    ops = [];
+    setCanvasSize(w, h);
+    syncUndoBtn();
+}
+
+/* ─── Redraw ─────────────────────────────────────────────── */
+function redraw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (bgImage) {
+        ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+    } else {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    ops.forEach(drawOp);
+}
+
+function drawOp(op) {
+    ctx.save();
+    ctx.strokeStyle = op.color;
+    ctx.fillStyle   = op.color;
+    ctx.lineWidth   = op.w;
+    ctx.lineCap     = 'round';
+    ctx.lineJoin    = 'round';
+
+    switch (op.type) {
+        case 'pen':
+            if (op.path.length === 1) {
+                ctx.beginPath();
+                ctx.arc(op.path[0].x, op.path[0].y, op.w / 2, 0, Math.PI * 2);
+                ctx.fill();
+            } else {
+                ctx.beginPath();
+                op.path.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+                ctx.stroke();
+            }
+            break;
+
+        case 'rect':
+            ctx.strokeRect(op.x, op.y, op.dw, op.dh);
+            break;
+
+        case 'arrow':
+            drawArrow(ctx, op.x1, op.y1, op.x2, op.y2, op.color, op.w);
+            break;
+
+        case 'text':
+            drawNote(ctx, op.x, op.y, op.text, op.color);
+            break;
+    }
+    ctx.restore();
+}
+
+function drawArrow(ctx, x1, y1, x2, y2, col, w) {
+    const dx = x2 - x1, dy = y2 - y1;
+    const len = Math.sqrt(dx * dx + dy * dy);
+    if (len < 2) return;
+    const head = Math.max(14, w * 4);
+    const angle = Math.atan2(dy, dx);
+
+    ctx.save();
+    ctx.strokeStyle = col;
+    ctx.fillStyle   = col;
+    ctx.lineWidth   = w;
+    ctx.lineCap     = 'round';
+
+    /* shaft — stop before arrowhead to avoid overlap */
+    const shaftEnd = head * 0.55;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2 - shaftEnd * Math.cos(angle), y2 - shaftEnd * Math.sin(angle));
+    ctx.stroke();
+
+    /* arrowhead */
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - head * Math.cos(angle - Math.PI / 6), y2 - head * Math.sin(angle - Math.PI / 6));
+    ctx.lineTo(x2 - head * Math.cos(angle + Math.PI / 6), y2 - head * Math.sin(angle + Math.PI / 6));
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+}
+
+function drawNote(ctx, x, y, text, col) {
+    const PAD = 9, FS = 13, LH = FS + 4, R = 7;
+    ctx.save();
+    ctx.font = `bold ${FS}px 'Apple SD Gothic Neo','Noto Sans KR',sans-serif`;
+    const tw  = ctx.measureText(text).width;
+    const nw  = tw + PAD * 2;
+    const nh  = LH + PAD * 2;
+
+    /* shadow */
+    ctx.shadowColor   = 'rgba(0,0,0,0.35)';
+    ctx.shadowBlur    = 8;
+    ctx.shadowOffsetY = 3;
+
+    /* background chip */
+    ctx.fillStyle = col;
+    ctx.beginPath();
+    ctx.moveTo(x + R, y);
+    ctx.lineTo(x + nw - R, y);
+    ctx.quadraticCurveTo(x + nw, y,      x + nw, y + R);
+    ctx.lineTo(x + nw, y + nh - R);
+    ctx.quadraticCurveTo(x + nw, y + nh, x + nw - R, y + nh);
+    ctx.lineTo(x + R, y + nh);
+    ctx.quadraticCurveTo(x, y + nh,      x, y + nh - R);
+    ctx.lineTo(x, y + R);
+    ctx.quadraticCurveTo(x, y,           x + R, y);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.shadowColor = 'transparent';
+    ctx.fillStyle   = '#fff';
+    ctx.fillText(text, x + PAD, y + PAD + FS);
+    ctx.restore();
+}
+
+/* live preview while dragging */
+function previewDraw(x2, y2) {
+    redraw();
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.fillStyle   = color;
+    ctx.lineWidth   = strokeW;
+    ctx.lineCap     = 'round';
+    ctx.lineJoin    = 'round';
+
+    if (tool === 'pen' && livePath.length > 0) {
+        ctx.beginPath();
+        livePath.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+    } else if (tool === 'rect') {
+        ctx.strokeRect(startX, startY, x2 - startX, y2 - startY);
+    } else if (tool === 'arrow') {
+        drawArrow(ctx, startX, startY, x2, y2, color, strokeW);
+    }
+    ctx.restore();
+}
+
+/* ─── Pointer helpers ────────────────────────────────────── */
+function canvasPos(e) {
+    const r = canvas.getBoundingClientRect();
+    return {
+        x: (e.clientX - r.left) * (canvas.width  / r.width),
+        y: (e.clientY - r.top)  * (canvas.height / r.height)
+    };
+}
+
+/* ─── Pointer events ─────────────────────────────────────── */
+function onPointerDown(e) {
+    if (!hasCanvas) return;
+    if (tool === 'text') { showTextInput(e); return; }
+    isDrawing = true;
+    canvas.setPointerCapture(e.pointerId);
+    const p = canvasPos(e);
+    startX = p.x; startY = p.y;
+    livePath = [p];
+}
+
+function onPointerMove(e) {
+    if (!isDrawing) return;
+    const p = canvasPos(e);
+    livePath.push(p);
+    previewDraw(p.x, p.y);
+}
+
+function onPointerUp(e) {
+    if (!isDrawing) return;
+    isDrawing = false;
+    const p = canvasPos(e);
+
+    if (tool === 'pen') {
+        livePath.push(p);
+        ops.push({ type:'pen', path:[...livePath], color, w:strokeW });
+    } else if (tool === 'rect') {
+        const dw = p.x - startX, dh = p.y - startY;
+        if (Math.abs(dw) > 2 || Math.abs(dh) > 2)
+            ops.push({ type:'rect', x:startX, y:startY, dw, dh, color, w:strokeW });
+    } else if (tool === 'arrow') {
+        const dx = p.x - startX, dy = p.y - startY;
+        if (Math.sqrt(dx*dx + dy*dy) > 5)
+            ops.push({ type:'arrow', x1:startX, y1:startY, x2:p.x, y2:p.y, color, w:strokeW });
+    }
+    redraw();
+    syncUndoBtn();
+}
+
+canvas.addEventListener('pointerdown', onPointerDown);
+canvas.addEventListener('pointermove', onPointerMove);
+canvas.addEventListener('pointerup',   onPointerUp);
+canvas.addEventListener('pointerleave', e => { if(isDrawing) onPointerUp(e); });
+
+/* ─── Text / Note overlay ────────────────────────────────── */
+function showTextInput(e) {
+    if (textEl) commitText();
+    const p = canvasPos(e);
+    const r = canvas.getBoundingClientRect();
+    const sx = r.width  / canvas.width;
+    const sy = r.height / canvas.height;
+
+    textEl = document.createElement('input');
+    textEl.type = 'text';
+    textEl.className = 'text-overlay';
+    textEl.placeholder = '메모 입력 후 Enter';
+    textEl.style.left = (r.left + p.x * sx) + 'px';
+    textEl.style.top  = (r.top  + p.y * sy - 18) + 'px';
+    textEl.style.borderColor = color;
+    textEl._cx = p.x;
+    textEl._cy = p.y - 18;
+
+    document.body.appendChild(textEl);
+
+    textEl.addEventListener('keydown', ev => {
+        if (ev.key === 'Enter')  { ev.stopPropagation(); commitText(); }
+        if (ev.key === 'Escape') { ev.stopPropagation(); cancelText(); }
+    });
+    textEl.addEventListener('blur', () => commitText());
+
+    setTimeout(() => textEl && textEl.focus(), 30);
+}
+
+function commitText() {
+    if (!textEl) return;
+    const txt = textEl.value.trim();
+    if (txt) {
+        ops.push({ type:'text', x:textEl._cx, y:textEl._cy, text:txt, color, w:strokeW });
+        redraw();
+        syncUndoBtn();
+    }
+    textEl.remove();
+    textEl = null;
+}
+
+function cancelText() {
+    if (!textEl) return;
+    textEl.remove();
+    textEl = null;
+}
+
+/* ─── Tool / color / stroke ──────────────────────────────── */
+function setTool(t) {
+    tool = t;
+    document.querySelectorAll('.tool-btn').forEach(b => b.classList.toggle('active', b.dataset.tool === t));
+    canvas.className = t === 'text' ? 'cur-text' : '';
+}
+
+function pickDot(el) {
+    color = el.dataset.color;
+    document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('sel'));
+    el.classList.add('sel');
+    document.getElementById('color-picker').value = color;
+}
+
+function pickCustom(val) {
+    color = val;
+    document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('sel'));
+}
+
+function onStrokeChange(v) {
+    strokeW = parseInt(v);
+    const s = Math.max(4, Math.min(strokeW * 2.5, 22));
+    strokeDot.style.width  = s + 'px';
+    strokeDot.style.height = s + 'px';
+}
+onStrokeChange(3);
+
+/* ─── Undo / Clear ───────────────────────────────────────── */
+function undo() {
+    if (ops.length === 0) return;
+    ops.pop();
+    redraw();
+    syncUndoBtn();
+}
+
+function clearAll() {
+    if (!hasCanvas) return;
+    if (!confirm('모든 그림을 지우시겠습니까?')) return;
+    ops = [];
+    redraw();
+    syncUndoBtn();
+}
+
+function syncUndoBtn() {
+    undoBtn.disabled = ops.length === 0;
+}
+
+/* ─── Export ─────────────────────────────────────────────── */
+function exportImage() {
+    if (!hasCanvas) return;
+    if (textEl) commitText();
+    const a = document.createElement('a');
+    a.download = 'annotated.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+}
+
+/* ─── File input / drop ──────────────────────────────────── */
+function onFileInput(e) {
+    const file = e.target.files[0];
+    if (file) readFile(file);
+    e.target.value = '';
+}
+
+function onDrop(e) {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) readFile(file);
+}
+
+function readFile(file) {
+    const reader = new FileReader();
+    reader.onload = ev => loadImage(ev.target.result);
+    reader.readAsDataURL(file);
+}
+
+/* ─── Keyboard shortcuts ─────────────────────────────────── */
+document.addEventListener('keydown', e => {
+    if (textEl) return; /* ignore while text input is open */
+    if ((e.ctrlKey || e.metaKey) && e.key === 'z') { e.preventDefault(); undo(); return; }
+    if (e.key === 'Delete' || e.key === 'Backspace') { if (!e.ctrlKey && !e.metaKey) clearAll(); return; }
+    const map = { p:'pen', r:'rect', a:'arrow', t:'text' };
+    if (map[e.key.toLowerCase()]) setTool(map[e.key.toLowerCase()]);
+});
+</script>
+
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","wfk1ps9vyi");</script>
+</body>
+</html>
